@@ -162,7 +162,8 @@ def run_cmd_now(args) -> int:
 
 
 def add_cmd_choice(_arg: ArgumentParser):
-    _arg.add_argument("name", type=str, help="specify name")
+    _arg.add_argument("name", nargs="?", type=str,
+                      help="specify name, default choice the best")
 
 
 def run_cmd_choice(args) -> int:
