@@ -14,14 +14,18 @@ from ..util import URL_PROG
 from .setup import add_cmd as add_cmd_setup
 from .setup import run_cmd as run_cmd_setup
 
+EPILOG = f"For more, please visit {URL_PROG}"
+
 
 def add_cmd(_arg: ArgumentParser):
     _arg.add_argument("-d", "--debug", action="store_true",
                       help="show debug information")
-    _arg.add_argument("--path", nargs="?", type=str, const=".",
-                      default=".", help="specify root path")
+    _arg.add_argument("--path", nargs="?", type=str, const=".", default=".",
+                      help="specify root path, default current directory")
     _sub = _arg.add_subparsers(dest="sub_build")
-    add_cmd_setup(_sub.add_parser("setup", help="build based on setuptools"))
+    add_cmd_setup(_sub.add_parser("setup", help="build based on setuptools",
+                                  description="build package via setuptools",
+                                  epilog=EPILOG))
 
 
 def run_cmd(args) -> int:
@@ -40,7 +44,7 @@ def run_cmd(args) -> int:
 def main(argv: Optional[List[str]] = None) -> int:
     _arg = ArgumentParser(prog="xpip-build",
                           description="build python package",
-                          epilog=f"For more, please visit {URL_PROG}")
+                          epilog=EPILOG)
     add_cmd(_arg)
     autocomplete(_arg)
     args = _arg.parse_args(argv)

@@ -16,9 +16,12 @@ from ..util import URL_PROG
 def add_cmd(_arg: ArgumentParser):
     _arg.add_argument("-d", "--debug", action="store_true",
                       help="show debug information")
-    _arg.add_argument("--no-check", action="store_true",)
-    _arg.add_argument("--only-check", action="store_true",)
-    _arg.add_argument("dists", nargs="+",
+    marg = _arg.add_mutually_exclusive_group()
+    marg.add_argument("--no-check", action="store_true",
+                      help="not check package files")
+    marg.add_argument("--only-check", action="store_true",
+                      help="only check package files")
+    _arg.add_argument("dists", metavar="PACKAGE", nargs="+",
                       help="The distribution files to upload.")
 
 

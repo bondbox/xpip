@@ -72,11 +72,13 @@ def clean(args) -> int:
 
 def add_cmd(_arg: ArgumentParser):
     _arg.add_argument("--clean", action="store_true", help="clean build files")
-    _arg.add_argument("--check", action="store_true", help="build check")
-    _arg.add_argument("--sdist", action="store_true", help="build sdist")
-    _arg.add_argument("--bdist_wheel", action="store_true",
+    marg = _arg.add_mutually_exclusive_group()
+    marg.add_argument("--check", action="store_true", help="build check")
+    marg.add_argument("--sdist", action="store_true", help="build sdist")
+    marg.add_argument("--bdist_wheel", action="store_true",
                       help="build bdist_wheel")
-    _arg.add_argument("--all", action="store_true", help="build all")
+    marg.add_argument("--all", action="store_true",
+                      help="build check and all distribution files")
     _arg.add_argument("--install", action="store_true",
                       help="install build package")
 

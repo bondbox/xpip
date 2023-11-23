@@ -24,6 +24,7 @@ from ..util import load
 from ..util import ping_second
 
 CONF_MIRRORS = f"{DIR_CONF}/mirrors.toml"
+EPILOG = f"For more, please visit {URL_PROG}"
 
 
 class MIRROR(NamedTuple):
@@ -125,7 +126,8 @@ def run_cmd_list(args) -> int:
 
 
 def add_cmd_get(_arg: ArgumentParser):
-    _arg.add_argument("name", type=str, nargs="?", help="specify name")
+    _arg.add_argument("name", metavar="NAME", type=str,
+                      nargs="?", help="specify name")
 
 
 def run_cmd_get(args) -> int:
@@ -138,8 +140,10 @@ def run_cmd_get(args) -> int:
 
 
 def add_cmd_set(_arg: ArgumentParser):
-    _arg.add_argument("name", type=str, nargs="?", help="specify name")
-    _arg.add_argument("url", type=str, nargs="?", help="specify url")
+    _arg.add_argument("name", metavar="NAME", type=str,
+                      nargs="?", help="specify name")
+    _arg.add_argument("url", metavar="URL", type=str,
+                      nargs="?", help="specify URL")
 
 
 def run_cmd_set(args) -> int:
@@ -162,7 +166,7 @@ def run_cmd_now(args) -> int:
 
 
 def add_cmd_choice(_arg: ArgumentParser):
-    _arg.add_argument("name", nargs="?", type=str,
+    _arg.add_argument("name", nargs="?", type=str, metavar="NAME",
                       help="specify name, default choice the best")
 
 
@@ -185,11 +189,21 @@ def add_cmd(_arg: ArgumentParser):
                       const=CONF_MIRRORS, default=CONF_MIRRORS,
                       help="specify config file")
     _sub = _arg.add_subparsers(dest="sub_mirror")
-    add_cmd_list(_sub.add_parser("list", help="list all mirrors"))
-    add_cmd_get(_sub.add_parser("get", help="get mirror's url"))
-    add_cmd_set(_sub.add_parser("set", help="set mirror's url"))
-    add_cmd_now(_sub.add_parser("now", help="show config mirror"))
-    add_cmd_choice(_sub.add_parser("choice", help="choice the best of mirror"))
+    add_cmd_list(_sub.add_parser("list", help="list all mirrors",
+                                 description="list all mirrors",
+                                 epilog=EPILOG))
+    add_cmd_get(_sub.add_parser("get", help="get mirror's URL",
+                                description="get mirror's URL",
+                                epilog=EPILOG))
+    add_cmd_set(_sub.add_parser("set", help="set mirror's URL",
+                                description="set mirror's URL",
+                                epilog=EPILOG))
+    add_cmd_now(_sub.add_parser("now", help="show config mirror",
+                                description="show config mirror",
+                                epilog=EPILOG))
+    add_cmd_choice(_sub.add_parser("choice", help="choice mirror",
+                                   description="choice mirror",
+                                   epilog=EPILOG))
 
 
 def run_cmd(args) -> int:
@@ -209,7 +223,7 @@ def run_cmd(args) -> int:
 def main(argv: Optional[List[str]] = None) -> int:
     _arg = ArgumentParser(prog="xpip-mirror",
                           description="pip mirror management",
-                          epilog=f"For more, please visit {URL_PROG}")
+                          epilog=EPILOG)
     add_cmd(_arg)
     autocomplete(_arg)
     args = _arg.parse_args(argv)
