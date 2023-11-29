@@ -2,9 +2,11 @@
 # coding=utf-8
 
 from argparse import ArgumentParser
+import os
 import sys
 from typing import List
 from typing import Optional
+from typing import Set
 
 from argcomplete import autocomplete
 from twine.commands.check import main as check
@@ -26,14 +28,23 @@ def add_cmd(_arg: ArgumentParser):
 
 
 def run_cmd(args) -> int:
+    dists: Set[str] = set()
+    for i in args.dists:
+        if not isinstance(i, str):
+            continue
+        if not os.path.isfile(i):
+            continue
+        segments = i.split(".")  # filetype: ".whl" and ".tar.gz"
+        if segments[-1] == "whl" or segments[-2:] == ["tar", "gz"]:
+            dists.add(i)
     if hasattr(args, "debug") and args.debug:
-        for f in args.dists:
+        for f in dists:
             sys.stdout.write(f"{f}\n")
         sys.stdout.flush()
     if not args.no_check:
-        check(args.dists)
+        check(list(dists))
     if not args.only_check:
-        upload(args.dists)
+        upload(list(dists))
     return 0
 
 
