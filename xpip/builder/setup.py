@@ -71,7 +71,8 @@ def clean(args) -> int:
 
 
 def add_cmd(_arg: ArgumentParser):
-    _arg.add_argument("--clean", action="store_true", help="clean build files")
+    _arg.add_argument("--clean", action="store_true",
+                      help="clean files before build")
     marg = _arg.add_mutually_exclusive_group()
     marg.add_argument("--check", action="store_true", help="build check")
     marg.add_argument("--sdist", action="store_true", help="build sdist")
@@ -80,7 +81,7 @@ def add_cmd(_arg: ArgumentParser):
     marg.add_argument("--all", action="store_true",
                       help="build check and all distribution files")
     _arg.add_argument("--install", action="store_true",
-                      help="install build package")
+                      help="install package after build")
 
 
 def run_cmd(args) -> int:
