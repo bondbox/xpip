@@ -3,11 +3,12 @@
     1a.修改源代码
     1b.文件“../xpip/__init__.py”（如有新增import对象）
     1c.文件“../setup.py”中的版本号
-2.检查是否安装twine、wheel模块（python -m pip list）
-    如果未安装，请依次执行以下命令：
+2.检查是否安装setuptools、wheel、twine等模块（python -m pip list）
+    如果未安装或者需要升级，请依次执行以下命令：
         >>>python -m pip install --upgrade pip
-        >>>python -m pip install twine
-        >>>python -m pip install wheel
+        >>>python -m pip install --upgrade setuptools
+        >>>python -m pip install --upgrade wheel
+        >>>python -m pip install --upgrade twine
 3.打包及上传，依次执行以下脚本文件：
     windows:
         ./windows/step1.pack.bat
