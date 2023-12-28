@@ -6,7 +6,7 @@ from typing import List
 from ping3 import ping
 import toml
 
-__version__ = "1.1"
+__version__ = "1.2.alpha.1"
 URL_PROG = "https://github.com/bondbox/xpip-python"
 DIR_CONF = f"{os.path.dirname(__file__)}/config"
 
