@@ -18,9 +18,9 @@ from tabulate import tabulate
 
 from ..util import DIR_CONF
 from ..util import URL_PROG
-from ..util import dump
-from ..util import load
 from ..util import ping_second
+from ..util import toml_dump
+from ..util import toml_load
 
 CONF_MIRRORS = f"{DIR_CONF}/mirrors.toml"
 EPILOG = f"For more, please visit {URL_PROG}"
@@ -151,7 +151,7 @@ def run_cmd_set(args) -> int:
     if _name is not None and _url is not None:
         mirror = {_name: {"url": _url}}
         args.mirrors.update(mirror)
-        dump(args.config, args.mirrors)
+        toml_dump(args.config, args.mirrors)
     return 0
 
 
@@ -215,7 +215,7 @@ def run_cmd(args) -> int:
     }
     if not hasattr(args, "sub_mirror") or args.sub_mirror not in cmds:
         return ENOENT
-    args.mirrors = load(args.config)
+    args.mirrors = toml_load(args.config)
     return cmds[args.sub_mirror](args)
 
 
