@@ -1,6 +1,7 @@
 # coding=utf-8
 
 from argparse import ArgumentParser
+from argparse import Namespace
 import concurrent.futures
 from errno import ENOENT
 import socket
@@ -102,7 +103,7 @@ def add_cmd_list(_arg: ArgumentParser):
     pass
 
 
-def run_cmd_list(args) -> int:
+def run_cmd_list(args: Namespace) -> int:
     mirrors: List[MIRROR] = get_mirrors(args.mirrors)
     # print table format
     tabular_data: List[Tuple[str, str, str, str]] = []
@@ -129,7 +130,7 @@ def add_cmd_get(_arg: ArgumentParser):
                       nargs="?", help="specify name")
 
 
-def run_cmd_get(args) -> int:
+def run_cmd_get(args: Namespace) -> int:
     _name = args.name
     if _name is not None and _name in args.mirrors:
         mirror: dict = args.mirrors[_name]
@@ -145,7 +146,7 @@ def add_cmd_set(_arg: ArgumentParser):
                       nargs="?", help="specify URL")
 
 
-def run_cmd_set(args) -> int:
+def run_cmd_set(args: Namespace) -> int:
     _name = args.name
     _url = args.url
     if _name is not None and _url is not None:
@@ -159,7 +160,7 @@ def add_cmd_now(_arg: ArgumentParser):
     pass
 
 
-def run_cmd_now(args) -> int:
+def run_cmd_now(args: Namespace) -> int:
     pipcli("config get global.index-url".split())
     return 0
 
@@ -169,7 +170,7 @@ def add_cmd_choice(_arg: ArgumentParser):
                       help="specify name, default choice the best")
 
 
-def run_cmd_choice(args) -> int:
+def run_cmd_choice(args: Namespace) -> int:
     mirrors = get_mirrors(args.mirrors)
     best = choice_mirror(mirrors, args.name)
     if best is not None:
@@ -205,7 +206,7 @@ def add_cmd(_arg: ArgumentParser):
                                    epilog=EPILOG))
 
 
-def run_cmd(args) -> int:
+def run_cmd(args: Namespace) -> int:
     cmds = {
         "list": run_cmd_list,
         "get": run_cmd_get,

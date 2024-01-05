@@ -1,6 +1,7 @@
 # coding=utf-8
 
 from argparse import ArgumentParser
+from argparse import Namespace
 import glob
 import os
 import shutil
@@ -9,7 +10,7 @@ import sys
 import setuptools
 
 
-def run(args) -> int:
+def run(args: Namespace) -> int:
     if hasattr(args, "setup_py") and isinstance(args.setup_py, str):
         exec(args.setup_py)
     else:
@@ -17,28 +18,28 @@ def run(args) -> int:
     return 0
 
 
-def check(args) -> int:
+def check(args: Namespace) -> int:
     sys.argv = "setup.py check".split()
     return run(args)
 
 
-def sdist(args) -> int:
+def sdist(args: Namespace) -> int:
     sys.argv = "setup.py sdist".split()
     return run(args)
 
 
-def bdist_wheel(args) -> int:
+def bdist_wheel(args: Namespace) -> int:
     sys.argv = "setup.py bdist_wheel --universal".split()
     return run(args)
 
 
-def install(args) -> int:
+def install(args: Namespace) -> int:
     # TODO: uninstall
     sys.argv = "setup.py install".split()
     return run(args)
 
 
-def clean(args) -> int:
+def clean(args: Namespace) -> int:
     to_delete_dirs = []
     to_delete_dirs.extend(glob.glob("build"))
     to_delete_dirs.extend(glob.glob("dist"))
@@ -83,7 +84,7 @@ def add_cmd(_arg: ArgumentParser):
                       help="install package after build")
 
 
-def run_cmd(args) -> int:
+def run_cmd(args: Namespace) -> int:
     os.chdir(args.root)
 
     if os.path.isfile("setup.py"):

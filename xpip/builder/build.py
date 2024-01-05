@@ -1,6 +1,7 @@
 # coding=utf-8
 
 from argparse import ArgumentParser
+from argparse import Namespace
 from errno import ENOENT
 import os
 import sys
@@ -27,7 +28,7 @@ def add_cmd(_arg: ArgumentParser):
                                   epilog=EPILOG))
 
 
-def run_cmd(args) -> int:
+def run_cmd(args: Namespace) -> int:
     cmds = {
         "setup": run_cmd_setup,
     }

@@ -1,6 +1,7 @@
 # coding=utf-8
 
 from argparse import ArgumentParser
+from argparse import Namespace
 import platform
 import sys
 from typing import List
@@ -19,7 +20,7 @@ def add_cmd(_arg: ArgumentParser):
     pass
 
 
-def run_cmd(args) -> int:
+def run_cmd(args: Namespace) -> int:
     python_version = f"python {platform.python_version()}, pip {pip_version}"
     sys.stderr.write(f"xpip {xpip_version} ({python_version})\n")
     sys.stdout.flush()
