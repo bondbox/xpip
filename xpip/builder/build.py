@@ -9,7 +9,7 @@ from typing import Optional
 
 from argcomplete import autocomplete
 
-from ..util import URL_PROG
+from ..utils import URL_PROG
 from .setup import add_cmd as add_cmd_setup
 from .setup import run_cmd as run_cmd_setup
 

@@ -11,7 +11,7 @@ from argcomplete import autocomplete
 from twine.commands.check import main as check
 from twine.commands.upload import main as upload
 
-from ..util import URL_PROG
+from ..utils import URL_PROG
 
 
 def add_cmd(_arg: ArgumentParser):

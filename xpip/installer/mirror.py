@@ -16,11 +16,11 @@ from argcomplete import autocomplete
 from pip._internal.cli.main import main as pipcli
 from tabulate import tabulate
 
-from ..util import DIR_CONF
-from ..util import URL_PROG
-from ..util import ping_second
-from ..util import toml_dump
-from ..util import toml_load
+from ..utils import DIR_CONF
+from ..utils import URL_PROG
+from ..utils import ping_second
+from ..utils import toml_dump
+from ..utils import toml_load
 
 CONF_MIRRORS = f"{DIR_CONF}/mirrors.toml"
 EPILOG = f"For more, please visit {URL_PROG}"

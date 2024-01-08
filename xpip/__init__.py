@@ -1,3 +1,3 @@
 # coding:utf-8
 
-from .util import __version__
+from .utils import __version__

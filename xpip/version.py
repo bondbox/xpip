@@ -9,8 +9,8 @@ from typing import Optional
 from argcomplete import autocomplete
 from pip import __version__ as pip_version
 
-from .util import URL_PROG
-from .util import __version__ as xpip_version
+from .utils import URL_PROG
+from .utils import __version__ as xpip_version
 
 
 def add_cmd(_arg: ArgumentParser):
