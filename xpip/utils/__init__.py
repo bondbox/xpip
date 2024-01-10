@@ -6,8 +6,16 @@ from typing import List
 from ping3 import ping
 import toml
 
-__version__ = "1.2.2"
-URL_PROG = "https://github.com/bondbox/xpip-python"
+from .attribute import __author__
+from .attribute import __author_email__
+from .attribute import __description__
+from .attribute import __name__
+from .attribute import __url_bugs__
+from .attribute import __url_code__
+from .attribute import __url_docs__
+from .attribute import __url_home__
+from .attribute import __version__
+
 DIR_CONF = f"{os.path.dirname(__file__)}/config"
 
 
