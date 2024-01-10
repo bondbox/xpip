@@ -1,6 +1,8 @@
 # coding=utf-8
 
 import os
+from typing import Any
+from typing import Dict
 from typing import List
 
 from ping3 import ping
@@ -19,12 +21,12 @@ from .attribute import __version__
 DIR_CONF = f"{os.path.dirname(__file__)}/config"
 
 
-def toml_load(path: str) -> dict:
+def toml_load(path: str) -> Dict[str, Any]:
     with open(path, "r") as f:
         return toml.load(f)
 
 
-def toml_dump(path: str, object: dict) -> str:
+def toml_dump(path: str, object: Dict[str, Any]) -> str:
     with open(path, "w") as f:
         return toml.dump(object, f)
 
