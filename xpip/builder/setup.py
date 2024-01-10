@@ -6,13 +6,14 @@ import glob
 import os
 import shutil
 import sys
+from types import CodeType
 
 import setuptools
 
 
 def run(args: Namespace) -> int:
-    if hasattr(args, "setup_py") and isinstance(args.setup_py, str):
-        exec(args.setup_py)
+    if hasattr(args, "setup_code") and isinstance(args.setup_code, CodeType):
+        exec(args.setup_code)
     else:
         setuptools.setup()
     return 0
@@ -85,14 +86,19 @@ def add_cmd(_arg: ArgumentParser):
 
 
 def run_cmd(args: Namespace) -> int:
+    cwd = os.getcwd()
     os.chdir(args.root)
 
     if os.path.isfile("setup.py"):
         with open("setup.py", "r") as f:
-            args.setup_py = f.read()
+            sys.path.insert(0, args.root)
+            code = compile(f.read(), "setup.py", "exec")
             if hasattr(args, "debug") and args.debug:
-                sys.stdout.write(f"setup.py:\n{args.setup_py}\n")
+                sys.stdout.write(f"co_name: {code.co_name}\n")
+                sys.stdout.write(f"co_names: {code.co_names}\n")
+                sys.stdout.write(f"co_filename: {code.co_filename}\n")
                 sys.stdout.flush()
+            args.setup_code = code
 
     if args.clean:
         clean(args)
@@ -109,4 +115,5 @@ def run_cmd(args: Namespace) -> int:
     if args.install:
         install(args)
 
+    os.chdir(cwd)
     return 0

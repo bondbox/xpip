@@ -36,7 +36,7 @@ def run_cmd(args: Namespace) -> int:
         return ENOENT
     args.root = os.path.realpath(args.path)
     if hasattr(args, "debug") and args.debug:
-        sys.stdout.write(f"root:{args.root}\n")
+        sys.stdout.write(f"root: {args.root}\n")
         sys.stdout.flush()
     return cmds[args.sub_build](args)
 
