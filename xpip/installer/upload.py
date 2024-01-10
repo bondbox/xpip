@@ -20,7 +20,7 @@ from twine.package import PackageFile
 from twine.utils import DEFAULT_CONFIG_FILE
 from twine.utils import DEFAULT_REPOSITORY as DEFAULT_REPO_URL
 
-from ..utils import URL_PROG
+from ..utils import __url_home__
 
 
 def get_project_name(filepath: str) -> str:
@@ -188,7 +188,7 @@ def run_cmd(args: Namespace) -> int:
 def main(argv: Optional[List[str]] = None) -> int:
     _arg = ArgumentParser(prog="xpip-upload", add_help=False,
                           description="upload python package via twine",
-                          epilog=f"For more, please visit {URL_PROG}")
+                          epilog=f"For more, please visit {__url_home__}")
     add_cmd(_arg, argv)
     autocomplete(_arg)
     args = _arg.parse_args(argv)

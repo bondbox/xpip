@@ -10,11 +10,11 @@ from typing import Optional
 
 from argcomplete import autocomplete
 
-from ..utils import URL_PROG
+from ..utils import __url_home__
 from .setup import add_cmd as add_cmd_setup
 from .setup import run_cmd as run_cmd_setup
 
-EPILOG = f"For more, please visit {URL_PROG}"
+EPILOG = f"For more, please visit {__url_home__}"
 
 
 def add_cmd(_arg: ArgumentParser):

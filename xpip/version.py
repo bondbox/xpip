@@ -10,7 +10,7 @@ from typing import Optional
 from argcomplete import autocomplete
 from pip import __version__ as pip_version
 
-from .utils import URL_PROG
+from .utils import __url_home__
 from .utils import __version__ as xpip_version
 
 
@@ -29,7 +29,7 @@ def run_cmd(args: Namespace) -> int:
 
 def main(argv: Optional[List[str]] = None) -> int:
     _arg = ArgumentParser(prog="xpip-version", description="show version",
-                          epilog=f"For more, please visit {URL_PROG}")
+                          epilog=f"For more, please visit {__url_home__}")
     add_cmd(_arg)
     autocomplete(_arg)
     args = _arg.parse_args(argv)

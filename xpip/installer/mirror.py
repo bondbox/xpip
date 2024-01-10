@@ -18,13 +18,13 @@ from pip._internal.cli.main import main as pipcli
 from tabulate import tabulate
 
 from ..utils import DIR_CONF
-from ..utils import URL_PROG
+from ..utils import __url_home__
 from ..utils import ping_second
 from ..utils import toml_dump
 from ..utils import toml_load
 
 CONF_MIRRORS = f"{DIR_CONF}/mirrors.toml"
-EPILOG = f"For more, please visit {URL_PROG}"
+EPILOG = f"For more, please visit {__url_home__}"
 
 
 class MIRROR(NamedTuple):
