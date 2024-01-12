@@ -1,6 +1,7 @@
 # coding=utf-8
 
-import setuptools
+from setuptools import find_packages
+from setuptools import setup
 
 from xpip.utils import __author__
 from xpip.utils import __author_email__
@@ -12,7 +13,7 @@ from xpip.utils import __url_docs__
 from xpip.utils import __url_home__
 from xpip.utils import __version__
 
-setuptools.setup(
+setup(
     name=__name__,
     version=__version__,
     description=__description__,
@@ -21,4 +22,5 @@ setuptools.setup(
     author_email=__author_email__,
     project_urls={"Source Code": __url_code__,
                   "Bug Tracker": __url_bugs__,
-                  "Documentation": __url_docs__})
+                  "Documentation": __url_docs__},
+    packages=find_packages(include=["xpip*"], exclude=["tests"]))
