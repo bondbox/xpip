@@ -7,7 +7,7 @@ rm -rf "dist"
 rm -rf "*.egg-info"
 
 rm -rf setup.py
-cp setup/xpip-mirror.py setup.py
+cp setuptools/xpip-mirror.py setup.py
 
 python3 setup.py check
 python3 setup.py sdist

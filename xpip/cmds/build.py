@@ -11,8 +11,8 @@ from typing import Optional
 from argcomplete import autocomplete
 
 from ..utils import __url_home__
-from .setup import add_cmd as add_cmd_setup
-from .setup import run_cmd as run_cmd_setup
+from .setuptools import add_cmd as add_cmd_setup
+from .setuptools import run_cmd as run_cmd_setup
 
 EPILOG = f"For more, please visit {__url_home__}"
 

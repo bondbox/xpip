@@ -29,7 +29,7 @@ setup(
                       "wheel", "twine", "keyring", "keyrings.alt",
                       "xpip-mirror"],
     entry_points={"console_scripts": [
-        "xpip-version = xpip.version:main",
-        "xpip-build = xpip.builder.build:main",
-        "xpip-upload = xpip.installer.upload:main"]},
+        "xpip-version = xpip.cmds.version:main",
+        "xpip-build = xpip.cmds.build:main",
+        "xpip-upload = xpip.cmds.upload:main"]},
 )
