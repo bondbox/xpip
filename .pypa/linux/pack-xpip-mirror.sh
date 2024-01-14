@@ -6,9 +6,13 @@ rm -rf "build"
 rm -rf "dist"
 rm -rf "*.egg-info"
 
+rm -rf setup.py
+cp setup/xpip-mirror.py setup.py
+
 python3 setup.py check
 python3 setup.py sdist
 python3 setup.py bdist_wheel --universal
 
+rm -rf setup.py
 popd
 popd

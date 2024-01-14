@@ -1,30 +1,33 @@
 # coding=utf-8
 
-from argparse import ArgumentParser
-from argparse import Namespace
 import concurrent.futures
-from errno import ENOENT
 import socket
 import sys
 from typing import Dict
 from typing import List
 from typing import NamedTuple
 from typing import Optional
+from typing import Sequence
 from typing import Tuple
 from urllib.parse import urlparse
 
-from argcomplete import autocomplete
 from pip._internal.cli.main import main as pipcli
 from tabulate import tabulate
+from xarg import add_command
+from xarg import argp
+from xarg import commands
+from xarg import run_command
 
-from ..utils import DIR_CONF
-from ..utils import __url_home__
-from ..utils import ping_second
-from ..utils import toml_dump
-from ..utils import toml_load
+from .util import DIR_CONF
+from .util import __description__
+from .util import __url_home__
+from .util import __version__
+from .util import ping_second
+from .util import toml_dump
+from .util import toml_load
 
 CONF_MIRRORS = f"{DIR_CONF}/mirrors.toml"
-EPILOG = f"For more, please visit {__url_home__}"
+CONF_MIRRORS_NAME: List[str] = list()
 
 
 class MIRROR(NamedTuple):
@@ -99,12 +102,14 @@ def choice_mirror(mirrors: List[MIRROR],
     return None
 
 
-def add_cmd_list(_arg: ArgumentParser):
+@add_command("list", help="list all mirrors")
+def add_cmd_list(_arg: argp):
     pass
 
 
-def run_cmd_list(args: Namespace) -> int:
-    mirrors: List[MIRROR] = get_mirrors(args.mirrors)
+@run_command(add_cmd_list)
+def run_cmd_list(cmds: commands) -> int:
+    mirrors: List[MIRROR] = get_mirrors(cmds.args.mirrors)
     # print table format
     tabular_data: List[Tuple[str, str, str, str]] = []
     for m in mirrors:
@@ -125,55 +130,66 @@ def run_cmd_list(args: Namespace) -> int:
     return 0
 
 
-def add_cmd_get(_arg: ArgumentParser, allow_name: List[str]):
+@add_command("get", help="get mirror's URL")
+def add_cmd_get(_arg: argp):
+    global CONF_MIRRORS_NAME
     _arg.add_argument("name", metavar="NAME", type=str, nargs="?",
-                      choices=allow_name, help="specify name")
+                      choices=CONF_MIRRORS_NAME, help="specify name")
 
 
-def run_cmd_get(args: Namespace) -> int:
-    _name = args.name
-    if _name is not None and _name in args.mirrors:
-        mirror: dict = args.mirrors[_name]
+@run_command(add_cmd_get)
+def run_cmd_get(cmds: commands) -> int:
+    _name = cmds.args.name
+    if _name is not None and _name in cmds.args.mirrors:
+        mirror: dict = cmds.args.mirrors[_name]
         sys.stderr.write(f"{mirror['url']}\n")
         sys.stdout.flush()
     return 0
 
 
-def add_cmd_set(_arg: ArgumentParser, allow_name: List[str]):
+@add_command("set", help="set mirror's URL")
+def add_cmd_set(_arg: argp):
+    global CONF_MIRRORS_NAME
     _arg.add_argument("name", metavar="NAME", type=str, nargs="?",
-                      choices=allow_name, help="specify name")
+                      choices=CONF_MIRRORS_NAME, help="specify name")
     _arg.add_argument("url", metavar="URL", type=str,
                       nargs="?", help="specify URL")
 
 
-def run_cmd_set(args: Namespace) -> int:
-    _name = args.name
-    _url = args.url
+@run_command(add_cmd_set)
+def run_cmd_set(cmds: commands) -> int:
+    _name = cmds.args.name
+    _url = cmds.args.url
     if _name is not None and _url is not None:
         mirror = {_name: {"url": _url}}
-        args.mirrors.update(mirror)
-        toml_dump(args.config, args.mirrors)
+        cmds.args.mirrors.update(mirror)
+        toml_dump(cmds.args.config, cmds.args.mirrors)
     return 0
 
 
-def add_cmd_now(_arg: ArgumentParser):
+@add_command("now", help="show config mirror")
+def add_cmd_now(_arg: argp):
     pass
 
 
-def run_cmd_now(args: Namespace) -> int:
+@run_command(add_cmd_now)
+def run_cmd_now(cmds: commands) -> int:
     pipcli("config get global.index-url".split())
     return 0
 
 
-def add_cmd_choice(_arg: ArgumentParser, allow_name: List[str]):
+@add_command("choice", help="choice mirror")
+def add_cmd_choice(_arg: argp):
+    global CONF_MIRRORS_NAME
     _arg.add_argument("name", nargs="?", type=str,
-                      metavar="NAME", choices=allow_name,
+                      metavar="NAME", choices=CONF_MIRRORS_NAME,
                       help="specify name, default choice the best")
 
 
-def run_cmd_choice(args: Namespace) -> int:
-    mirrors = get_mirrors(args.mirrors)
-    best = choice_mirror(mirrors, args.name)
+@run_command(add_cmd_choice)
+def run_cmd_choice(cmds: commands) -> int:
+    mirrors = get_mirrors(cmds.args.mirrors)
+    best = choice_mirror(mirrors, cmds.args.name)
     if best is not None:
         result = pipcli(f"config set global.index-url {best.url}".split())
         if result == 0:
@@ -183,67 +199,28 @@ def run_cmd_choice(args: Namespace) -> int:
     return 0
 
 
-def add_cmd(_arg: ArgumentParser, argv: Optional[List[str]] = None):
+@add_command("mirror")
+def add_cmd(_arg: argp):
     _arg.add_argument("-c", "--config", nargs="?", type=str,
                       const=CONF_MIRRORS, default=CONF_MIRRORS,
                       help="specify config file")
-    args, _ = _arg.parse_known_args(argv)
-    allow_name: List[str] = list(toml_load(args.config).keys())
-    _arg.add_argument("-d", "--debug", action="store_true",
-                      help="show debug information")
-    _arg.add_argument("-h", "--help", action="help",
-                      help="show this help message and exit")
-    _sub = _arg.add_subparsers(dest="sub_mirror")
-    add_cmd_list(_sub.add_parser("list", help="list all mirrors",
-                                 description="list all mirrors",
-                                 epilog=EPILOG))
-    add_cmd_get(_sub.add_parser("get", help="get mirror's URL",
-                                description="get mirror's URL",
-                                epilog=EPILOG), allow_name)
-    add_cmd_set(_sub.add_parser("set", help="set mirror's URL",
-                                description="set mirror's URL",
-                                epilog=EPILOG), allow_name)
-    add_cmd_now(_sub.add_parser("now", help="show config mirror",
-                                description="show config mirror",
-                                epilog=EPILOG))
-    add_cmd_choice(_sub.add_parser("choice", help="choice mirror",
-                                   description="choice mirror",
-                                   epilog=EPILOG), allow_name)
+    global CONF_MIRRORS_NAME
+    args = _arg.preparse_from_sys_argv()
+    CONF_MIRRORS_NAME = list(toml_load(args.config).keys())
 
 
-def run_cmd(args: Namespace) -> int:
-    cmds = {
-        "list": run_cmd_list,
-        "get": run_cmd_get,
-        "set": run_cmd_set,
-        "now": run_cmd_now,
-        "choice": run_cmd_choice,
-    }
-    if not hasattr(args, "sub_mirror") or args.sub_mirror not in cmds:
-        return ENOENT
-    args.mirrors = toml_load(args.config)
-    return cmds[args.sub_mirror](args)
+@run_command(add_cmd, add_cmd_list, add_cmd_get, add_cmd_set,
+             add_cmd_now, add_cmd_choice)
+def run_cmd(cmds: commands) -> int:
+    cmds.args.mirrors = toml_load(cmds.args.config)
+    return 0
 
 
-def main(argv: Optional[List[str]] = None) -> int:
-    _arg = ArgumentParser(prog="xpip-mirror", add_help=False,
-                          description="pip mirror management",
-                          epilog=EPILOG)
-    add_cmd(_arg, argv)
-    autocomplete(_arg)
-    args = _arg.parse_args(argv)
-
-    if hasattr(args, "debug") and args.debug:
-        sys.stdout.write(f"{args}\n")
-        sys.stdout.flush()
-
-    try:
-        return run_cmd(args)
-    except KeyboardInterrupt:
-        return 0
-    except BaseException as e:
-        if hasattr(args, "debug") and args.debug:
-            raise e
-        sys.stderr.write(f"{e}\n")
-        sys.stderr.flush()
-        return 10000
+def main(argv: Optional[Sequence[str]] = None) -> int:
+    cmds = commands()
+    cmds.version = __version__
+    return cmds.run(
+        root=add_cmd,
+        argv=argv,
+        description=__description__,
+        epilog=f"For more, please visit {__url_home__}.")
