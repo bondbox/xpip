@@ -92,7 +92,7 @@ class parser:
         return DEFAULT_REPO_URL
 
     def __get_username(self, repo: str) -> Optional[str]:
-        token: str = self.__safe_getattr("token", List)[0]
+        token: Optional[str] = self.__safe_getattr("token", List)[0]
         if isinstance(token, str):
             return self.TOKEN_USERNAME  # override --username
         if self.conf.has_option(repo, self.OPT_TOKEN):
@@ -102,7 +102,7 @@ class parser:
         return None
 
     def __get_password(self, repo: str) -> Optional[str]:
-        token: str = self.__safe_getattr("token", List)[0]
+        token: Optional[str] = self.__safe_getattr("token", List)[0]
         if isinstance(token, str):
             return token  # override --password
         if self.conf.has_option(repo, self.OPT_TOKEN):
