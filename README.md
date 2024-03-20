@@ -9,4 +9,5 @@ Python package. Build. Install.
 ## Features
 
 - **Quickly build and install Python package via [xpip-build](docs/xpip-build.md)**
+- **Upload package to PyPI repository via [xpip-upload](docs/xpip-upload.md)**
 - **Manage mirror via [xpip-mirror](docs/xpip-mirror.md)**
