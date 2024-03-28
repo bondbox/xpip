@@ -20,16 +20,28 @@ build-xpip.build:
 build: build-clean build-xpip.mirror build-xpip.upload build-xpip.build
 
 
-install-xpip.mirror: 
+install-xpip.mirror:
 	pip3 install --upgrade --force-reinstall --no-deps dist/xpip.mirror-*.whl
 
-install-xpip.upload: 
+install-xpip.upload:
 	pip3 install --upgrade --force-reinstall --no-deps dist/xpip.upload-*.whl
 
 install-xpip.build:
 	pip3 install --upgrade --force-reinstall --no-deps dist/xpip.build-*.whl
 
 install: install-xpip.mirror install-xpip.upload install-xpip.build
+
+
+uninstall-xpip.mirror:
+	pip3 uninstall -y xpip.mirror
+
+uninstall-xpip.upload:
+	pip3 uninstall -y xpip.upload
+
+uninstall-xpip.build:
+	pip3 uninstall -y xpip.build
+
+uninstall: uninstall-xpip.mirror uninstall-xpip.upload uninstall-xpip.build
 
 
 upload-xpip.mirror:
