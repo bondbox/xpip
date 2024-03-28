@@ -8,11 +8,17 @@ import sys
 from typing import List
 from typing import Optional
 
-from argcomplete import autocomplete
-
-from ..utils import __url_home__
+from ..util import __description__
+from ..util import __url_home__
 from .setuptools import add_cmd as add_cmd_setup
 from .setuptools import run_cmd as run_cmd_setup
+from .version import add_cmd as add_cmd_version
+from .version import run_cmd as run_cmd_version
+
+try:
+    from argcomplete import autocomplete
+except ModuleNotFoundError:
+    pass
 
 EPILOG = f"For more, please visit {__url_home__}"
 
@@ -26,11 +32,15 @@ def add_cmd(_arg: ArgumentParser):
     add_cmd_setup(_sub.add_parser("setup", help="build based on setuptools",
                                   description="build package via setuptools",
                                   epilog=EPILOG))
+    add_cmd_version(_sub.add_parser("version", help="show version",
+                                    description="show version",
+                                    epilog=EPILOG))
 
 
 def run_cmd(args: Namespace) -> int:
     cmds = {
         "setup": run_cmd_setup,
+        "version": run_cmd_version,
     }
     if not hasattr(args, "sub_build") or args.sub_build not in cmds:
         return ENOENT
@@ -42,11 +52,15 @@ def run_cmd(args: Namespace) -> int:
 
 
 def main(argv: Optional[List[str]] = None) -> int:
-    _arg = ArgumentParser(prog="xpip-build",
-                          description="build python package",
+    _arg = ArgumentParser(prog="xpip-build", description=__description__,
                           epilog=EPILOG)
     add_cmd(_arg)
-    autocomplete(_arg)
+
+    try:
+        autocomplete(_arg)
+    except NameError:
+        pass
+
     args = _arg.parse_args(argv)
 
     if hasattr(args, "debug") and args.debug:

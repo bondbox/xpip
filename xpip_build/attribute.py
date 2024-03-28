@@ -2,9 +2,9 @@
 
 from urllib.parse import urljoin
 
-__project__ = "xpip.mirror"
+__project__ = "xpip.build"
 __version__ = "1.0"
-__description__ = "pip mirror management"
+__description__ = "Python package. Build. Install."
 __url_home__ = "https://github.com/bondbox/xpip/"
 __url_code__ = __url_home__
 __url_docs__ = __url_home__

@@ -12,7 +12,6 @@ from typing import Tuple
 from typing import TypeAlias
 from typing import Union
 
-from argcomplete import autocomplete
 from twine.commands.check import main as check
 from twine.commands.upload import main as upload
 from twine.package import MetadataValue
@@ -20,7 +19,13 @@ from twine.package import PackageFile
 from twine.utils import DEFAULT_CONFIG_FILE
 from twine.utils import DEFAULT_REPOSITORY as DEFAULT_REPO_URL
 
-from ..utils import __url_home__
+from .util import __description__
+from .util import __url_home__
+
+try:
+    from argcomplete import autocomplete
+except ModuleNotFoundError:
+    pass
 
 
 def get_project_name(filepath: str) -> str:
@@ -186,11 +191,15 @@ def run_cmd(args: Namespace) -> int:
 
 
 def main(argv: Optional[List[str]] = None) -> int:
-    _arg = ArgumentParser(prog="xpip-upload", add_help=False,
-                          description="upload python package via twine",
+    _arg = ArgumentParser(prog="xpip-upload", description=__description__,
                           epilog=f"For more, please visit {__url_home__}")
     add_cmd(_arg, argv)
-    autocomplete(_arg)
+
+    try:
+        autocomplete(_arg)
+    except NameError:
+        pass
+
     args = _arg.parse_args(argv)
 
     if hasattr(args, "debug") and args.debug:
