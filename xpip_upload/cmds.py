@@ -9,7 +9,6 @@ from typing import List
 from typing import Optional
 from typing import Set
 from typing import Tuple
-from typing import TypeAlias
 from typing import Union
 
 from twine.commands.check import main as check
@@ -35,7 +34,7 @@ def get_project_name(filepath: str) -> str:
     return project_name
 
 
-_ClassInfo: TypeAlias = Union[type, Tuple["_ClassInfo", ...]]
+_ClassInfo = Union[type, Tuple["_ClassInfo", ...]]
 
 
 class parser:
