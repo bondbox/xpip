@@ -162,8 +162,6 @@ def add_cmd(_arg: ArgumentParser, argv: Optional[List[str]] = None):
                       nargs=1, metavar="URL", default=[None],
                       help="The repository (package index) URL to upload the "
                       "package to, this overrides --repository")
-    _arg.add_argument("-h", "--help", action="help",
-                      help="show this help message and exit")
     _arg.add_argument("dists", metavar="PACKAGE", nargs="+",
                       help="all distribution files to upload")
 
