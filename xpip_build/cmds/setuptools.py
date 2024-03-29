@@ -84,8 +84,8 @@ def add_cmd(_arg: ArgumentParser):
     _arg.add_argument("--install", action="store_true",
                       help="install package after build")
     DEFAULT_FILE: str = "setup.py"
-    _arg.add_argument("-f", "--setupfile", nargs=1,
-                      type=str, default=[DEFAULT_FILE],
+    _arg.add_argument("--file", type=str, nargs=1,
+                      metavar="SETUP", default=[DEFAULT_FILE],
                       help=f"Setup python file, default to {DEFAULT_FILE}")
 
 
