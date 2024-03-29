@@ -83,16 +83,25 @@ def add_cmd(_arg: ArgumentParser):
                       help="build check and all distribution files")
     _arg.add_argument("--install", action="store_true",
                       help="install package after build")
+    DEFAULT_FILE: str = "setup.py"
+    _arg.add_argument("-f", "--setupfile", nargs=1,
+                      type=str, default=[DEFAULT_FILE],
+                      help=f"Setup python file, default to {DEFAULT_FILE}")
 
 
 def run_cmd(args: Namespace) -> int:
     cwd = os.getcwd()
     os.chdir(args.root)
 
-    if os.path.isfile("setup.py"):
-        with open("setup.py", "r") as f:
+    setupfile: str = args.setupfile[0]
+    if hasattr(args, "debug") and args.debug:
+        sys.stdout.write(f"use setup file: {setupfile}\n")
+        sys.stdout.flush()
+
+    if os.path.isfile(setupfile):
+        with open(setupfile, "r") as f:
             sys.path.insert(0, args.root)
-            code = compile(f.read(), "setup.py", "exec")
+            code = compile(f.read(), setupfile, "exec")
             if hasattr(args, "debug") and args.debug:
                 sys.stdout.write(f"co_name: {code.co_name}\n")
                 sys.stdout.write(f"co_names: {code.co_names}\n")
