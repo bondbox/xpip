@@ -1,5 +1,7 @@
 # coding=utf-8
 
+import os
+
 from setuptools import find_packages
 from setuptools import setup
 
@@ -13,10 +15,14 @@ from xpip_mirror.util import __url_docs__
 from xpip_mirror.util import __url_home__
 from xpip_mirror.util import __version__
 
+long_description: str = os.path.join("docs", "xpip-mirror.md")
+
 setup(
     name=__project__,
     version=__version__,
     description=__description__,
+    long_description=open(long_description).read(),
+    long_description_content_type="text/markdown",
     keywords=["pip", "pypi", "mirror"],
     python_requires=">=3.8",
     url=__url_home__,

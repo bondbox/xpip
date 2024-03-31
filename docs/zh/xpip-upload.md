@@ -29,10 +29,17 @@ root@zou:~# xpip-upload dist/* --config-file .pypirc
 默认配置文件为 `~/.pypirc`，您还可以用过 `--config-file` 选项来指定配置文件，示例如下：
 
 ```text
+[distutils]
+index-servers =
+    repository1
+    repository2
+
 [repository1]
+repository = https://upload.pypi.org/legacy/
 token = <token>
 
 [repository2]
+repository = https://upload.pypi.org/legacy/
 username = __token__
 password = <token>
 ```

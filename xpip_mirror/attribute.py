@@ -3,7 +3,7 @@
 from urllib.parse import urljoin
 
 __project__ = "xpip.mirror"
-__version__ = "0.2"
+__version__ = "0.2.1"
 __description__ = "pip mirror management"
 __url_home__ = "https://github.com/bondbox/xpip/"
 __url_code__ = __url_home__

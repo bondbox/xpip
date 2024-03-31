@@ -1,5 +1,7 @@
 # coding=utf-8
 
+import os
+
 from setuptools import find_packages
 from setuptools import setup
 
@@ -14,10 +16,14 @@ from xpip_build.util import __url_home__
 from xpip_build.util import __version__
 from xpip_upload.util import __version__ as upload_version
 
+long_description: str = os.path.join("docs", "xpip-build.md")
+
 setup(
     name=__project__,
     version=__version__,
     description=__description__,
+    long_description=open(long_description).read(),
+    long_description_content_type="text/markdown",
     keywords=["setuptools", "wheel"],
     url=__url_home__,
     author=__author__,

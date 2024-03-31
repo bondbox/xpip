@@ -21,13 +21,13 @@ build: build-clean build-xpip.mirror build-xpip.upload build-xpip.build
 
 
 install-xpip.mirror:
-	pip3 install --upgrade --force-reinstall --no-deps dist/xpip.mirror-*.whl
+	pip3 install --force-reinstall --no-deps dist/xpip.mirror-*.whl
 
 install-xpip.upload:
-	pip3 install --upgrade --force-reinstall --no-deps dist/xpip.upload-*.whl
+	pip3 install --force-reinstall --no-deps dist/xpip.upload-*.whl
 
 install-xpip.build:
-	pip3 install --upgrade --force-reinstall --no-deps dist/xpip.build-*.whl
+	pip3 install --force-reinstall --no-deps dist/xpip.build-*.whl
 
 install: install-xpip.mirror install-xpip.upload install-xpip.build
 
