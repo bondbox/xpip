@@ -20,23 +20,23 @@ def run(args: Namespace) -> int:
 
 
 def check(args: Namespace) -> int:
-    sys.argv = "setup.py check".split()
+    sys.argv = f"{args.setup_file} check".split()
     return run(args)
 
 
 def sdist(args: Namespace) -> int:
-    sys.argv = "setup.py sdist".split()
+    sys.argv = f"{args.setup_file} sdist".split()
     return run(args)
 
 
 def bdist_wheel(args: Namespace) -> int:
-    sys.argv = "setup.py bdist_wheel --universal".split()
+    sys.argv = f"{args.setup_file} bdist_wheel --universal".split()
     return run(args)
 
 
 def install(args: Namespace) -> int:
     # TODO: uninstall
-    sys.argv = "setup.py install".split()
+    sys.argv = f"{args.setup_file} install".split()
     return run(args)
 
 
@@ -84,7 +84,7 @@ def add_cmd(_arg: ArgumentParser):
     _arg.add_argument("--install", action="store_true",
                       help="install package after build")
     DEFAULT_FILE: str = "setup.py"
-    _arg.add_argument("--file", type=str, nargs=1,
+    _arg.add_argument("--file", dest="setupfile", type=str, nargs=1,
                       metavar="SETUP", default=[DEFAULT_FILE],
                       help=f"Setup python file, default to {DEFAULT_FILE}")
 
@@ -97,6 +97,7 @@ def run_cmd(args: Namespace) -> int:
     if hasattr(args, "debug") and args.debug:
         sys.stdout.write(f"use setup file: {setupfile}\n")
         sys.stdout.flush()
+    args.setup_file = setupfile
 
     if os.path.isfile(setupfile):
         with open(setupfile, "r") as f:
