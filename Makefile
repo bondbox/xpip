@@ -3,6 +3,9 @@ MAKEFLAGS += --always-make
 all: build install
 
 
+clean: build-clean
+
+
 build-clean:
 	rm -rf build
 	rm -rf dist
