@@ -3,7 +3,7 @@
 from urllib.parse import urljoin
 
 __project__ = "xpip.build"
-__version__ = "1.1.2"
+__version__ = "1.1.3"
 __description__ = "Python package. Build. Install."
 __url_home__ = "https://github.com/bondbox/xpip/"
 __url_code__ = __url_home__

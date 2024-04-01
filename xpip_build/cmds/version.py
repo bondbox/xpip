@@ -4,8 +4,9 @@ from argparse import ArgumentParser
 from argparse import Namespace
 import platform
 import sys
+from typing import List
 
-from pip import __version__ as pip_version
+from setuptools import __version__ as setuptools_version
 
 from ..util import __version__ as xpip_version
 
@@ -15,7 +16,8 @@ def add_cmd(_arg: ArgumentParser):
 
 
 def run_cmd(args: Namespace) -> int:
-    python_version = f"python {platform.python_version()}, pip {pip_version}"
-    sys.stderr.write(f"xpip-build {xpip_version} ({python_version})\n")
+    versions: List[str] = [f"python {platform.python_version()}",
+                           f"setuptools {setuptools_version}"]
+    sys.stderr.write(f"xpip-build {xpip_version} ({', '.join(versions)})\n")
     sys.stdout.flush()
     return 0
