@@ -30,7 +30,9 @@ root@zou:~# xpip-mirror now
 https://mirrors.aliyun.com/pypi/simple
 ```
 
-### 自动选择最佳的镜像源
+### 自动选择镜像源
+
+探测镜像源的延迟，自动选择最佳的镜像源，以获得更快的安装速度：
 
 ```text
 root@zou:~# xpip-mirror choice
@@ -38,7 +40,9 @@ Writing to /root/.config/pip/pip.conf
 choice ustc: https://pypi.mirrors.ustc.edu.cn/simple
 ```
 
-### 选择指定名称的镜像源
+### 切换指定镜像源
+
+如果需要使用特定的镜像源安装包，也可指定切换的镜像源名称：
 
 ```text
 root@zou:~# xpip-mirror choice tsinghua

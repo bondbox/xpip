@@ -18,15 +18,17 @@ root@zou:~# xpip-upload dist/* --token <TOKEN>
 
 ## 使用配置文件
 
-您还可以将密码或者 token 存储在配置文件中，以避免每次输入。
+将密码或者 token 存储在本地的配置文件中，指定配置文件以避免每次输入用户名和密码。
 
-**警告：密码或者 token 为敏感信息，请本地存储，切勿保存于公共环境中。**
+**警告：密码或者 token 为敏感信息，请务必本地存储，妥善保管，谨防泄露，切勿上传至公共环境。**
+
+可以通过 `--config-file` 选项来指定配置文件，未指定时 `~/.pypirc` （如果存在）作为默认配置文件。
 
 ```shell
 root@zou:~# xpip-upload dist/* --config-file .pypirc
 ```
 
-默认配置文件为 `~/.pypirc`，您还可以用过 `--config-file` 选项来指定配置文件，示例如下：
+配置文件的示例：
 
 ```text
 [distutils]
