@@ -1,6 +1,6 @@
 MAKEFLAGS += --always-make
 
-all: build install
+all: build install test
 
 
 clean: build-clean
@@ -60,3 +60,21 @@ upload-xpip.build:
 	python3 -m twine upload --verbose --config-file .pypirc --repository xpip.build dist/xpip.build-*
 
 upload: upload-xpip.mirror upload-xpip.upload upload-xpip.build
+
+
+prepare-test:
+	pip3 install --upgrade pylint flake8 pytest
+
+pylint:
+	pylint $$(git ls-files xpip_build/*.py)
+	pylint $$(git ls-files xpip_mirror/*.py)
+	pylint $$(git ls-files xpip_upload/*.py)
+
+flake8:
+	flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+	flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+pytest:
+	pytest
+
+test: prepare-test pylint flake8 pytest
