@@ -27,7 +27,7 @@ from .util import toml_dump
 from .util import toml_load
 
 CONF_MIRRORS = f"{DIR_CONF}/mirrors.toml"
-CONF_MIRRORS_NAME: List[str] = list()
+CONF_MIRRORS_NAME: List[str] = []
 
 
 class MIRROR(NamedTuple):
@@ -132,7 +132,7 @@ def run_cmd_list(cmds: commands) -> int:
 
 @add_command("get", help="get mirror's URL")
 def add_cmd_get(_arg: argp):
-    global CONF_MIRRORS_NAME
+    global CONF_MIRRORS_NAME  # pylint: disable=global-variable-not-assigned
     _arg.add_argument("name", metavar="NAME", type=str, nargs="?",
                       choices=CONF_MIRRORS_NAME, help="specify name")
 
@@ -149,7 +149,7 @@ def run_cmd_get(cmds: commands) -> int:
 
 @add_command("set", help="set mirror's URL")
 def add_cmd_set(_arg: argp):
-    global CONF_MIRRORS_NAME
+    global CONF_MIRRORS_NAME  # pylint: disable=global-variable-not-assigned
     _arg.add_argument("name", metavar="NAME", type=str, nargs="?",
                       choices=CONF_MIRRORS_NAME, help="specify name")
     _arg.add_argument("url", metavar="URL", type=str,
@@ -173,14 +173,14 @@ def add_cmd_now(_arg: argp):
 
 
 @run_command(add_cmd_now)
-def run_cmd_now(cmds: commands) -> int:
+def run_cmd_now(cmds: commands) -> int:  # pylint: disable=unused-argument
     pipcli("config get global.index-url".split())
     return 0
 
 
 @add_command("choice", help="choice mirror")
 def add_cmd_choice(_arg: argp):
-    global CONF_MIRRORS_NAME
+    global CONF_MIRRORS_NAME  # pylint: disable=global-variable-not-assigned
     _arg.add_argument("name", nargs="?", type=str,
                       metavar="NAME", choices=CONF_MIRRORS_NAME,
                       help="specify name, default choice the best")
@@ -204,7 +204,7 @@ def add_cmd(_arg: argp):
     _arg.add_argument("-c", "--config", nargs="?", type=str,
                       const=CONF_MIRRORS, default=CONF_MIRRORS,
                       help="specify config file")
-    global CONF_MIRRORS_NAME
+    global CONF_MIRRORS_NAME  # pylint: disable=global-statement
     args = _arg.preparse_from_sys_argv()
     CONF_MIRRORS_NAME = list(toml_load(args.config).keys())
 

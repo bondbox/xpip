@@ -207,7 +207,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         return run_cmd(args)
     except KeyboardInterrupt:
         return 0
-    except BaseException as e:
+    except BaseException as e:  # pylint: disable=broad-except
         if hasattr(args, "debug") and args.debug:
             raise e
         sys.stderr.write(f"{e}\n")

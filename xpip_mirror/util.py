@@ -12,23 +12,19 @@ DIR_CONF = f"{os.path.dirname(__file__)}/config"
 
 
 def toml_load(path: str) -> Dict[str, Any]:
-    with open(path, "r") as f:
+    with open(path, "r", encoding="utf-8") as f:
         return toml.load(f)
 
 
-def toml_dump(path: str, object: Dict[str, Any]) -> str:
-    with open(path, "w") as f:
-        return toml.dump(object, f)
+def toml_dump(path: str, obj: Dict[str, Any]) -> str:
+    with open(path, "w", encoding="utf-8") as f:
+        return toml.dump(obj, f)
 
 
 def ping_second(address: str, count: int = 3, timeout: int = 1) -> float:
     delay: List[float] = []
-
-    if count < 1:
-        count = 1
-
-    if timeout < 1:
-        timeout = 1
+    count = max(1, count)
+    timeout = max(1, timeout)
 
     for i in range(count):
         t = ping(address, seq=i, timeout=timeout)
