@@ -18,10 +18,10 @@ from xarg import argp
 from xarg import commands
 from xarg import run_command
 
+from .attribute import __description__
+from .attribute import __url_home__
+from .attribute import __version__
 from .util import DIR_CONF
-from .util import __description__
-from .util import __url_home__
-from .util import __version__
 from .util import ping_second
 from .util import toml_dump
 from .util import toml_load

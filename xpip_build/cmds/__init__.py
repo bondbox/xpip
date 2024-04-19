@@ -8,8 +8,8 @@ import sys
 from typing import List
 from typing import Optional
 
-from ..util import __description__
-from ..util import __url_home__
+from ..attribute import __description__
+from ..attribute import __url_home__
 from .setuptools import add_cmd as add_cmd_setup
 from .setuptools import run_cmd as run_cmd_setup
 from .version import add_cmd as add_cmd_version

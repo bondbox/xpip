@@ -5,16 +5,16 @@ import os
 from setuptools import find_packages
 from setuptools import setup
 
-from xpip_build.util import __author__
-from xpip_build.util import __author_email__
-from xpip_build.util import __description__
-from xpip_build.util import __project__
-from xpip_build.util import __url_bugs__
-from xpip_build.util import __url_code__
-from xpip_build.util import __url_docs__
-from xpip_build.util import __url_home__
-from xpip_build.util import __version__
-from xpip_upload.util import __version__ as upload_version
+from xpip_build.attribute import __author__
+from xpip_build.attribute import __author_email__
+from xpip_build.attribute import __description__
+from xpip_build.attribute import __project__
+from xpip_build.attribute import __url_bugs__
+from xpip_build.attribute import __url_code__
+from xpip_build.attribute import __url_docs__
+from xpip_build.attribute import __url_home__
+from xpip_build.attribute import __version__
+from xpip_upload.attribute import __version__ as upload_version
 
 long_description: str = os.path.join("docs", "xpip-build.md")
 

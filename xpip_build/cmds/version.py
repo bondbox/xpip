@@ -8,7 +8,7 @@ from typing import List
 
 from setuptools import __version__ as setuptools_version
 
-from ..util import __version__ as xpip_version
+from ..attribute import __version__ as xpip_version
 
 
 def add_cmd(_arg: ArgumentParser):

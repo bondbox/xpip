@@ -18,8 +18,8 @@ from twine.package import PackageFile
 from twine.utils import DEFAULT_CONFIG_FILE
 from twine.utils import DEFAULT_REPOSITORY as DEFAULT_REPO_URL
 
-from .util import __description__
-from .util import __url_home__
+from .attribute import __description__
+from .attribute import __url_home__
 
 try:
     from argcomplete import autocomplete
