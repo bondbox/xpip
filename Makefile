@@ -75,6 +75,8 @@ flake8:
 	flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
 pytest:
-	pytest
+	pytest xpip_build
+	pytest xpip_mirror
+	pytest xpip_upload
 
 test: prepare-test pylint flake8 pytest

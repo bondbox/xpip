@@ -1,0 +1,6 @@
+xarg-python >= 1.4.3
+tabulate
+wcwidth
+ping3
+toml
+pip
