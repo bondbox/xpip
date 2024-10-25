@@ -1,6 +1,6 @@
 # xpip
 
-构建和安装 Python 包。
+> 构建和安装 Python 包。
 
 ## 特性
 

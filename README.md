@@ -1,6 +1,6 @@
 # xpip
 
-Python package. Build. Install.
+> Python package. Build. Install.
 
 ## Language
 
