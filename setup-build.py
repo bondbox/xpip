@@ -33,6 +33,6 @@ setup(
                   "Documentation": __url_docs__},
     packages=find_packages(include=["xpip_build*"]),
     install_requires=[f"xpip-upload >= {upload_version}",
-                      "setuptools >= 51.0.0"],
+                      "setuptools >= 69.3.0, <= 70.3.0"],
     entry_points={"console_scripts": ["xpip-build = xpip_build.cmds:main",]},
 )
