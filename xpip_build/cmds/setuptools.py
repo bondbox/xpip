@@ -72,17 +72,13 @@ def clean(args: Namespace) -> int:
 
 
 def add_cmd(_arg: ArgumentParser):
-    _arg.add_argument("--clean", action="store_true",
-                      help="clean files before build")
+    _arg.add_argument("--clean", action="store_true", help="clean files before build")  # noqa:E501
     marg = _arg.add_mutually_exclusive_group()
     marg.add_argument("--check", action="store_true", help="build check")
-    marg.add_argument("--sdist", action="store_true", help="build sdist")
-    marg.add_argument("--bdist_wheel", action="store_true",
-                      help="build bdist_wheel")
-    marg.add_argument("--all", action="store_true",
-                      help="build check and all distribution files")
-    _arg.add_argument("--install", action="store_true",
-                      help="install package after build")
+    marg.add_argument("--sdist", action="store_true", help="build source distribution")  # noqa:E501
+    marg.add_argument("--bdist_wheel", action="store_true", help="build wheel distribution")  # noqa:E501
+    marg.add_argument("--all", action="store_true", help="check and build all distributions")  # noqa:E501
+    _arg.add_argument("--install", action="store_true", help="install package after build")  # noqa:E501
     DEFAULT_FILE: str = "setup.py"
     _arg.add_argument("--file", dest="setupfile", type=str, nargs=1,
                       metavar="SETUP", default=[DEFAULT_FILE],
