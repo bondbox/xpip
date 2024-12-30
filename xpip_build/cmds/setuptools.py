@@ -13,7 +13,7 @@ import setuptools
 
 def run(args: Namespace) -> int:
     if hasattr(args, "setup_code") and isinstance(args.setup_code, CodeType):
-        exec(args.setup_code)
+        exec(args.setup_code, args.globals)
     else:
         setuptools.setup()
     return 0
@@ -94,6 +94,10 @@ def run_cmd(args: Namespace) -> int:
         sys.stdout.write(f"use setup file: {setupfile}\n")
         sys.stdout.flush()
     args.setup_file = setupfile
+    args.globals = {
+        "__file__": os.path.abspath(setupfile),
+        "__name__": "__main__",
+     }
 
     if os.path.isfile(setupfile):
         with open(setupfile, "r") as f:
