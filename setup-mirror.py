@@ -33,7 +33,6 @@ setup(
                   "Documentation": __url_docs__},
     packages=find_packages(include=["xpip_mirror*"]),
     package_data={"xpip_mirror.config": ["mirrors.toml"]},
-    install_requires=["xarg-python >= 1.7.0", "tabulate", "wcwidth",
-                      "ping3", "toml", "pip"],
+    install_requires=["xkits >= 2.1.1", "tabulate", "wcwidth", "ping3", "toml", "pip"],  # noqa:E501
     entry_points={"console_scripts": ["xpip-mirror = xpip_mirror.cmds:main"]},
 )

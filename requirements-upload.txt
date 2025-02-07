@@ -1,4 +1,0 @@
-wheel
-twine
-keyring
-keyrings.alt
