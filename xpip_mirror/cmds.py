@@ -19,7 +19,7 @@ from xarg import commands
 from xarg import run_command
 
 from .attribute import __description__
-from .attribute import __url_home__
+from .attribute import __urlhome__
 from .attribute import __version__
 from .util import DIR_CONF
 from .util import ping_second
@@ -223,4 +223,4 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         root=add_cmd,
         argv=argv,
         description=__description__,
-        epilog=f"For more, please visit {__url_home__}.")
+        epilog=f"For more, please visit {__urlhome__}.")

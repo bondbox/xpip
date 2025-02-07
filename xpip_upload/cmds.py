@@ -19,7 +19,7 @@ from twine.utils import DEFAULT_CONFIG_FILE
 from twine.utils import DEFAULT_REPOSITORY as DEFAULT_REPO_URL
 
 from .attribute import __description__
-from .attribute import __url_home__
+from .attribute import __urlhome__
 
 try:
     from argcomplete import autocomplete
@@ -189,7 +189,7 @@ def run_cmd(args: Namespace) -> int:
 
 def main(argv: Optional[List[str]] = None) -> int:
     _arg = ArgumentParser(prog="xpip-upload", description=__description__,
-                          epilog=f"For more, please visit {__url_home__}")
+                          epilog=f"For more, please visit {__urlhome__}")
     add_cmd(_arg, argv)
 
     try:

@@ -3,12 +3,12 @@
 from urllib.parse import urljoin
 
 __project__ = "xpip.mirror"
-__version__ = "0.2.2"
+__version__ = "0.2.3"
 __description__ = "pip mirror management"
-__url_home__ = "https://github.com/bondbox/xpip/"
-__url_code__ = __url_home__
-__url_docs__ = __url_home__
-__url_bugs__ = urljoin(__url_home__, "issues")
+__urlhome__ = "https://github.com/bondbox/xpip/"
+__urlcode__ = __urlhome__
+__urldocs__ = __urlhome__
+__urlbugs__ = urljoin(__urlhome__, "issues")
 
 # author
 __author__ = "Mingzhe Zou"

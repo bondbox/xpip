@@ -9,7 +9,7 @@ from typing import List
 from typing import Optional
 
 from ..attribute import __description__
-from ..attribute import __url_home__
+from ..attribute import __urlhome__
 from .setuptools import add_cmd as add_cmd_setup
 from .setuptools import run_cmd as run_cmd_setup
 from .version import add_cmd as add_cmd_version
@@ -20,7 +20,7 @@ try:
 except ModuleNotFoundError:
     pass
 
-EPILOG = f"For more, please visit {__url_home__}"
+EPILOG = f"For more, please visit {__urlhome__}"
 
 
 def add_cmd(_arg: ArgumentParser):
