@@ -42,13 +42,19 @@ reinstall: reinstall-xpip.mirror reinstall-xpip.upload reinstall-xpip.build
 
 
 upload-xpip.mirror:
+	python3 -m twine check dist/xpip_mirror-*
 	python3 -m twine check dist/xpip.mirror-*
+	python3 -m twine upload --verbose --config-file .pypirc --repository xpip.mirror dist/xpip_mirror-*
 	python3 -m twine upload --verbose --config-file .pypirc --repository xpip.mirror dist/xpip.mirror-*
 upload-xpip.upload:
+	python3 -m twine check dist/xpip_upload-*
 	python3 -m twine check dist/xpip.upload-*
+	python3 -m twine upload --verbose --config-file .pypirc --repository xpip.upload dist/xpip_upload-*
 	python3 -m twine upload --verbose --config-file .pypirc --repository xpip.upload dist/xpip.upload-*
 upload-xpip.build:
+	python3 -m twine check dist/xpip_build-*
 	python3 -m twine check dist/xpip.build-*
+	python3 -m twine upload --verbose --config-file .pypirc --repository xpip.build dist/xpip_build-*
 	python3 -m twine upload --verbose --config-file .pypirc --repository xpip.build dist/xpip.build-*
 upload: upload-xpip.mirror upload-xpip.upload upload-xpip.build
 
