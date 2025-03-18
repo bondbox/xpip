@@ -2,8 +2,8 @@
 
 from urllib.parse import urljoin
 
-__project__ = "xpip.upload"
-__version__ = "1.2.1"
+__project__ = "xpip-upload"
+__version__ = "1.3.0"
 __description__ = "upload python package via twine"
 __urlhome__ = "https://github.com/bondbox/xpip/"
 __urlcode__ = __urlhome__

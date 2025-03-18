@@ -2,8 +2,8 @@
 
 from urllib.parse import urljoin
 
-__project__ = "xpip.build"
-__version__ = "1.2.2"
+__project__ = "xpip-build"
+__version__ = "1.3.0"
 __description__ = "Python package. Build. Install."
 __urlhome__ = "https://github.com/bondbox/xpip/"
 __urlcode__ = __urlhome__
