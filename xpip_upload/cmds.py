@@ -13,8 +13,8 @@ from typing import Union
 
 from twine.commands.check import main as check
 from twine.commands.upload import main as upload
-from twine.package import MetadataValue
 from twine.package import PackageFile
+from twine.package import PackageMetadata
 from twine.utils import DEFAULT_CONFIG_FILE
 from twine.utils import DEFAULT_REPOSITORY as DEFAULT_REPO_URL
 
@@ -29,9 +29,10 @@ except ModuleNotFoundError:
 
 def get_project_name(filepath: str) -> str:
     pkgf: PackageFile = PackageFile.from_filename(filepath, comment=None)
-    project_name: MetadataValue = pkgf.metadata_dictionary()["name"]
-    assert isinstance(project_name, str)
-    return project_name
+    meta: PackageMetadata = pkgf.metadata_dictionary()
+    name: Optional[str] = meta.get("name")
+    assert isinstance(name, str)
+    return name
 
 
 _ClassInfo = Union[type, Tuple["_ClassInfo", ...]]
