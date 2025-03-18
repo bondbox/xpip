@@ -31,6 +31,6 @@ setup(
                   "Bug Tracker": __urlbugs__,
                   "Documentation": __urldocs__},
     packages=find_packages(include=["xpip_upload*"]),
-    install_requires=["wheel", "twine", "keyring", "keyrings.alt"],
+    install_requires=["wheel", "packaging>=24.2", "twine>=6.1.0", "keyring", "keyrings.alt"],  # noqa:E501
     entry_points={"console_scripts": ["xpip-upload = xpip_upload.cmds:main"]},
 )
