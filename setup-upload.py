@@ -30,7 +30,9 @@ setup(
     project_urls={"Source Code": __urlcode__,
                   "Bug Tracker": __urlbugs__,
                   "Documentation": __urldocs__},
-    packages=find_packages(include=["xpip_upload*"]),
-    install_requires=["wheel", "packaging>=24.2", "twine>=6.1.0", "keyring", "keyrings.alt"],  # noqa:E501
+    packages=find_packages(include=["xpip_upload*"],
+                           exclude=["xpip_upload.unittest"]),
+    install_requires=["wheel", "packaging>=24.2", "twine>=6.1.0",
+                      "keyring", "keyrings.alt"],
     entry_points={"console_scripts": ["xpip-upload = xpip_upload.cmds:main"]},
 )

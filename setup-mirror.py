@@ -31,8 +31,10 @@ setup(
     project_urls={"Source Code": __urlcode__,
                   "Bug Tracker": __urlbugs__,
                   "Documentation": __urldocs__},
-    packages=find_packages(include=["xpip_mirror*"]),
+    packages=find_packages(include=["xpip_mirror*"],
+                           exclude=["xpip_mirror.unittest"]),
     package_data={"xpip_mirror.config": ["mirrors.toml"]},
-    install_requires=["xkits >= 2.1.1", "tabulate", "wcwidth", "ping3", "toml", "pip"],  # noqa:E501
+    install_requires=["xkits >= 2.4.0", "tabulate", "wcwidth",
+                      "ping3", "toml", "pip"],
     entry_points={"console_scripts": ["xpip-mirror = xpip_mirror.cmds:main"]},
 )
