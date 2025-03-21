@@ -55,18 +55,27 @@ upload: upload-xpip-mirror upload-xpip-upload upload-xpip-build
 
 prepare-test:
 	pip3 install --upgrade pylint flake8 pytest
-pylint:
-	pylint $$(git ls-files xpip_build/*.py)
+pylint-xpip-mirror:
 	pylint $$(git ls-files xpip_mirror/*.py)
+pylint-xpip-upload:
 	pylint $$(git ls-files xpip_upload/*.py)
+pylint-xpip-build:
+	pylint $$(git ls-files xpip_build/*.py)
+pylint: pylint-xpip-mirror pylint-xpip-upload pylint-xpip-build
 flake8:
 	flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
 	flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-pytest:
-	pytest xpip_build
+pytest-xpip-mirror:
 	pytest xpip_mirror
+pytest-xpip-upload:
 	pytest xpip_upload
+pytest-xpip-build:
+	pytest xpip_build
+pytest: pytest-xpip-mirror pytest-xpip-upload pytest-xpip-build
 pytest-clean:
 	rm -rf .pytest_cache
+test-xpip-mirror: prepare-test pylint-xpip-mirror flake8 pytest-xpip-mirror
+test-xpip-upload: prepare-test pylint-xpip-upload flake8 pytest-xpip-upload
+test-xpip-build: prepare-test pylint-xpip-build flake8 pytest-xpip-build
 test: prepare-test pylint flake8 pytest
 test-clean: pytest-clean
