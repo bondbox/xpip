@@ -57,7 +57,7 @@ upload: upload-xpip-mirror upload-xpip-upload upload-xpip-build
 
 
 prepare-test:
-	pip3 install --upgrade pylint flake8 pytest
+	pip3 install --upgrade pylint flake8 pytest pytest-cov
 pylint-xpip-mirror:
 	pylint $$(git ls-files xpip_mirror/*.py)
 pylint-xpip-upload:
