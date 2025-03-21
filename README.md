@@ -4,7 +4,7 @@
 
 ## Language
 
-- **[简体中文](docs/zh/README.md)**
+- **[简体中文](docs/zh-Hans/README.md)**
 
 ## Features
 
