@@ -39,12 +39,7 @@ class MIRROR(NamedTuple):
 
 
 def get_mirror(name: str, url: str) -> MIRROR:
-    try:
-        hostname = urlparse(url).hostname
-    except TypeError:
-        hostname = None
-
-    if hostname is None:
+    if (hostname := urlparse(url).hostname) is None:
         return MIRROR(name, url, "ERROR", "UNKOWN", 0.0)
 
     try:
@@ -188,6 +183,7 @@ def add_cmd_choice(_arg: argp):
 
 @run_command(add_cmd_choice)
 def run_cmd_choice(cmds: commands) -> int:
+    result: int = 0
     mirrors = get_mirrors(cmds.args.mirrors)
     best = choice_mirror(mirrors, cmds.args.name)
     if best is not None:
@@ -195,8 +191,7 @@ def run_cmd_choice(cmds: commands) -> int:
         if result == 0:
             sys.stderr.write(f"choice {best.name}: {best.url}\n")
             sys.stdout.flush()
-        return result
-    return 0
+    return result
 
 
 @add_command("mirror")

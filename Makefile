@@ -69,11 +69,11 @@ flake8:
 	flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
 	flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 pytest-xpip-mirror:
-	pytest --cov=xpip_mirror --cov-report=term-missing --cov-report=xml --cov-report=html --cov-config=.coveragerc --cov-fail-under=100
+	pytest --cov=xpip_mirror --cov-report=term-missing --cov-report=xml --cov-report=html --cov-config=.coveragerc --cov-fail-under=100 xpip_mirror/unittest/*.py
 pytest-xpip-upload:
-	pytest --cov=xpip_upload --cov-report=term-missing --cov-report=xml --cov-report=html --cov-config=.coveragerc --cov-fail-under=100
+	pytest --cov=xpip_upload --cov-report=term-missing --cov-report=xml --cov-report=html --cov-config=.coveragerc --cov-fail-under=100 xpip_upload/unittest/*.py
 pytest-xpip-build:
-	pytest --cov=xpip_build --cov-report=term-missing --cov-report=xml --cov-report=html --cov-config=.coveragerc --cov-fail-under=100
+	pytest --cov=xpip_build --cov-report=term-missing --cov-report=xml --cov-report=html --cov-config=.coveragerc --cov-fail-under=100 xpip_build/unittest/*.py
 pytest: pytest-xpip-mirror pytest-xpip-upload pytest-xpip-build
 pytest-clean:
 	rm -rf .pytest_cache
