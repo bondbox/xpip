@@ -35,7 +35,6 @@ def bdist_wheel(args: Namespace) -> int:
 
 
 def install(args: Namespace) -> int:
-    # TODO: uninstall
     sys.argv = f"{args.setup_file} install".split()
     return run(args)
 
@@ -54,7 +53,6 @@ def clean(args: Namespace) -> int:
                 sys.stdout.flush()
             shutil.rmtree(dir)
 
-    # TODO: delete *.pyc and *.pyo
     to_delete_files = []
     to_delete_files.extend(
         glob.glob(os.path.join("**", "*.pyc"), recursive=True))
