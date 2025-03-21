@@ -11,10 +11,10 @@ build-clean:
 	rm -rf dist
 	rm -rf *.egg-info
 build-xpip-mirror:
-	pip3 install --upgrade xkits tabulate wcwidth ping3 toml pip
+	pip3 install --upgrade setuptools xkits tabulate wcwidth ping3 toml pip
 	python3 setup-mirror.py check sdist bdist_wheel --universal
 build-xpip-upload:
-	pip3 install --upgrade wheel packaging twine keyring keyrings.alt
+	pip3 install --upgrade setuptools wheel packaging twine keyring keyrings.alt
 	python3 setup-upload.py check sdist bdist_wheel --universal
 build-xpip-build:
 	pip3 install --upgrade "setuptools >= 69.3.0, <= 70.3.0"
