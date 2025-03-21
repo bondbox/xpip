@@ -8,12 +8,12 @@ import sys
 from typing import List
 from typing import Optional
 
-from ..attribute import __description__
-from ..attribute import __urlhome__
-from .setuptools import add_cmd as add_cmd_setup
-from .setuptools import run_cmd as run_cmd_setup
-from .version import add_cmd as add_cmd_version
-from .version import run_cmd as run_cmd_version
+from xpip_build.attribute import __description__
+from xpip_build.attribute import __urlhome__
+from xpip_build.cmds.setuptools import add_cmd as add_cmd_setup
+from xpip_build.cmds.setuptools import run_cmd as run_cmd_setup
+from xpip_build.cmds.version import add_cmd as add_cmd_version
+from xpip_build.cmds.version import run_cmd as run_cmd_version
 
 try:
     from argcomplete import autocomplete

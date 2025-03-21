@@ -18,13 +18,13 @@ from xkits import argp
 from xkits import commands
 from xkits import run_command
 
-from .attribute import __description__
-from .attribute import __urlhome__
-from .attribute import __version__
-from .util import DIR_CONF
-from .util import ping_second
-from .util import toml_dump
-from .util import toml_load
+from xpip_mirror.attribute import __description__
+from xpip_mirror.attribute import __urlhome__
+from xpip_mirror.attribute import __version__
+from xpip_mirror.util import DIR_CONF
+from xpip_mirror.util import ping_second
+from xpip_mirror.util import toml_dump
+from xpip_mirror.util import toml_load
 
 CONF_MIRRORS = f"{DIR_CONF}/mirrors.toml"
 CONF_MIRRORS_NAME: List[str] = []
