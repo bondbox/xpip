@@ -17,8 +17,8 @@ from xpip_build.cmds.version import run_cmd as run_cmd_version
 
 try:
     from argcomplete import autocomplete
-except ModuleNotFoundError:
-    pass
+except ModuleNotFoundError:  # pragma: no cover
+    pass  # pragma: no cover
 
 EPILOG = f"For more, please visit {__urlhome__}"
 
@@ -58,8 +58,8 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     try:
         autocomplete(_arg)
-    except NameError:
-        pass
+    except NameError:  # pragma: no cover
+        pass  # pragma: no cover
 
     args = _arg.parse_args(argv)
 
