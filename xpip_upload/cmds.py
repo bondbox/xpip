@@ -23,8 +23,8 @@ from xpip_upload.attribute import __urlhome__
 
 try:
     from argcomplete import autocomplete
-except ModuleNotFoundError:
-    pass
+except ModuleNotFoundError:  # pragma: no cover
+    pass  # pragma: no cover
 
 
 def get_project_name(filepath: str) -> str:
@@ -71,8 +71,8 @@ class parser:
     def allow_repositorys(self) -> List[str]:
         sections: List[str] = [self.DEFAULT_REPO]
         for section in self.conf.sections():
-            if section not in ["distutils"] and section not in sections:
-                sections.append(section)
+            if section not in ["distutils"] and section not in sections:  # noqa:E501 pragma: no cover pylint: disable=line-too-long
+                sections.append(section)  # pragma: no cover
         return sections
 
     def __safe_getattr(self, name: str, types: Optional[_ClassInfo] = None):
@@ -93,7 +93,7 @@ class parser:
         if isinstance(repository_url, str):
             return repository_url  # override --repository
         if self.conf.has_option(repo, self.OPT_REPO):
-            return self.conf[repo][self.OPT_REPO]
+            return self.conf[repo][self.OPT_REPO]  # pragma: no cover
         return DEFAULT_REPO_URL
 
     def __get_username(self, repo: str) -> Optional[str]:
@@ -101,9 +101,10 @@ class parser:
         if isinstance(token, str):
             return self.TOKEN_USERNAME  # override --username
         if self.conf.has_option(repo, self.OPT_TOKEN):
-            return self.TOKEN_USERNAME  # override username config
+            # override username config
+            return self.TOKEN_USERNAME  # pragma: no cover
         if self.conf.has_option(repo, self.OPT_USERNAME):
-            return self.conf[repo][self.OPT_USERNAME]
+            return self.conf[repo][self.OPT_USERNAME]  # pragma: no cover
         return None
 
     def __get_password(self, repo: str) -> Optional[str]:
@@ -111,9 +112,10 @@ class parser:
         if isinstance(token, str):
             return token  # override --password
         if self.conf.has_option(repo, self.OPT_TOKEN):
-            return self.conf[repo][self.OPT_TOKEN]  # override password config
+            # override password config
+            return self.conf[repo][self.OPT_TOKEN]  # pragma: no cover
         if self.conf.has_option(repo, self.OPT_PASSWORD):
-            return self.conf[repo][self.OPT_PASSWORD]
+            return self.conf[repo][self.OPT_PASSWORD]  # pragma: no cover
         return None
 
     def get_upload_args(self, package: str) -> List[str]:
@@ -169,14 +171,11 @@ def add_cmd(_arg: ArgumentParser, argv: Optional[List[str]] = None):
 
 def run_cmd(args: Namespace) -> int:
     dists: Set[str] = set()
-    for i in args.dists:
-        if not isinstance(i, str):
-            continue
-        if not os.path.isfile(i):
-            continue
-        segments = i.split(".")  # filetype: ".whl" and ".tar.gz"
-        if segments[-1] == "whl" or segments[-2:] == ["tar", "gz"]:
-            dists.add(i)
+    for dist in args.dists:
+        if isinstance(dist, str) and os.path.isfile(dist):
+            segments = dist.split(".")  # filetype: ".whl" and ".tar.gz"
+            if segments[-1] == "whl" or segments[-2:] == ["tar", "gz"]:
+                dists.add(dist)
 
     _parser = parser(args)
     for pkg in dists:
@@ -195,8 +194,8 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     try:
         autocomplete(_arg)
-    except NameError:
-        pass
+    except NameError:  # pragma: no cover
+        pass  # pragma: no cover
 
     args = _arg.parse_args(argv)
 

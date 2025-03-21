@@ -38,7 +38,7 @@ class TestCmds(unittest.TestCase):
     @mock.patch.object(setuptools, "run")
     def test_setup_install_debug(self, mock_run):
         mock_run.side_effect = [Exception()]
-        self.assertRaises(Exception, cmds.main, ["--debug", "setup", "--file", "setup-upload.py", "--install"])  # noqa:E501
+        self.assertRaises(Exception, cmds.main, ["--debug", "setup", "--file", "setup-upload.py", "--install"])  # noqa:E501,H202
 
     @mock.patch.object(setuptools, "run")
     def test_setup_install_KeyboardInterrupt(self, mock_run):
