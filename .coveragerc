@@ -1,0 +1,12 @@
+[run]
+omit =
+    xpip_mirror/unittest/*
+    xpip_upload/unittest/*
+    xpip_build/unittest/*
+
+[report]
+exclude_lines =
+    pragma: no cover
+    raise NotImplementedError
+    if __name__ == .__main__.:
+    def __repr__

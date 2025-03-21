@@ -11,20 +11,23 @@ build-clean:
 	rm -rf dist
 	rm -rf *.egg-info
 build-xpip-mirror:
+	pip3 install --upgrade xkits tabulate wcwidth ping3 toml pip
 	python3 setup-mirror.py check sdist bdist_wheel --universal
 build-xpip-upload:
+	pip3 install --upgrade wheel packaging twine keyring keyrings.alt
 	python3 setup-upload.py check sdist bdist_wheel --universal
 build-xpip-build:
+	pip3 install --upgrade "setuptools >= 69.3.0, <= 70.3.0"
 	python3 setup-build.py check sdist bdist_wheel --universal
 build: build-clean build-xpip-mirror build-xpip-upload build-xpip-build
 
 
 install-xpip-mirror:
-	pip3 install --force-reinstall --no-deps dist/xpip-mirror-*.whl
+	pip3 install --force-reinstall --no-deps dist/xpip_mirror-*.whl
 install-xpip-upload:
-	pip3 install --force-reinstall --no-deps dist/xpip-upload-*.whl
+	pip3 install --force-reinstall --no-deps dist/xpip_upload-*.whl
 install-xpip-build:
-	pip3 install --force-reinstall --no-deps dist/xpip-build-*.whl
+	pip3 install --force-reinstall --no-deps dist/xpip_build-*.whl
 install: install-xpip-mirror install-xpip-upload install-xpip-build
 
 uninstall-xpip-mirror:
@@ -66,11 +69,11 @@ flake8:
 	flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
 	flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 pytest-xpip-mirror:
-	pytest xpip_mirror
+	pytest --cov=xpip_mirror --cov-report=term-missing --cov-report=xml --cov-report=html --cov-config=.coveragerc --cov-fail-under=100
 pytest-xpip-upload:
-	pytest xpip_upload
+	pytest --cov=xpip_upload --cov-report=term-missing --cov-report=xml --cov-report=html --cov-config=.coveragerc --cov-fail-under=100
 pytest-xpip-build:
-	pytest xpip_build
+	pytest --cov=xpip_build --cov-report=term-missing --cov-report=xml --cov-report=html --cov-config=.coveragerc --cov-fail-under=100
 pytest: pytest-xpip-mirror pytest-xpip-upload pytest-xpip-build
 pytest-clean:
 	rm -rf .pytest_cache
