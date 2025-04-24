@@ -127,7 +127,6 @@ def run_cmd_list(cmds: Command) -> int:
 
 @CommandArgument("get", help="get mirror's URL")
 def add_cmd_get(_arg: ArgParser):
-    global CONF_MIRRORS_NAME  # pylint: disable=global-variable-not-assigned
     _arg.add_argument("name", metavar="NAME", type=str, nargs="?",
                       choices=CONF_MIRRORS_NAME, help="specify name")
 
@@ -144,7 +143,6 @@ def run_cmd_get(cmds: Command) -> int:
 
 @CommandArgument("set", help="set mirror's URL")
 def add_cmd_set(_arg: ArgParser):
-    global CONF_MIRRORS_NAME  # pylint: disable=global-variable-not-assigned
     _arg.add_argument("name", metavar="NAME", type=str, nargs="?",
                       choices=CONF_MIRRORS_NAME, help="specify name")
     _arg.add_argument("url", metavar="URL", type=str,
@@ -175,7 +173,6 @@ def run_cmd_now(cmds: Command) -> int:  # pylint: disable=unused-argument
 
 @CommandArgument("choice", help="choice mirror")
 def add_cmd_choice(_arg: ArgParser):
-    global CONF_MIRRORS_NAME  # pylint: disable=global-variable-not-assigned
     _arg.add_argument("name", nargs="?", type=str,
                       metavar="NAME", choices=CONF_MIRRORS_NAME,
                       help="specify name, default choice the best")
@@ -199,8 +196,8 @@ def add_cmd(_arg: ArgParser):
     _arg.add_argument("-c", "--config", nargs="?", type=str,
                       const=CONF_MIRRORS, default=CONF_MIRRORS,
                       help="specify config file")
-    global CONF_MIRRORS_NAME  # pylint: disable=global-statement
     args = _arg.preparse_from_sys_argv()
+    global CONF_MIRRORS_NAME  # pylint: disable=global-statement
     CONF_MIRRORS_NAME = list(toml_load(args.config).keys())
 
 
