@@ -13,10 +13,10 @@ from urllib.parse import urlparse
 
 from pip._internal.cli.main import main as pipcli
 from tabulate import tabulate
-from xkits import add_command
-from xkits import argp
-from xkits import commands
-from xkits import run_command
+from xkits_command import ArgParser
+from xkits_command import Command
+from xkits_command import CommandArgument
+from xkits_command import CommandExecutor
 
 from xpip_mirror.attribute import __description__
 from xpip_mirror.attribute import __urlhome__
@@ -97,13 +97,13 @@ def choice_mirror(mirrors: List[MIRROR],
     return None
 
 
-@add_command("list", help="list all mirrors")
-def add_cmd_list(_arg: argp):
+@CommandArgument("list", help="list all mirrors")
+def add_cmd_list(_arg: ArgParser):
     pass
 
 
-@run_command(add_cmd_list)
-def run_cmd_list(cmds: commands) -> int:
+@CommandExecutor(add_cmd_list)
+def run_cmd_list(cmds: Command) -> int:
     mirrors: List[MIRROR] = get_mirrors(cmds.args.mirrors)
     # print table format
     tabular_data: List[Tuple[str, str, str, str]] = []
@@ -125,15 +125,15 @@ def run_cmd_list(cmds: commands) -> int:
     return 0
 
 
-@add_command("get", help="get mirror's URL")
-def add_cmd_get(_arg: argp):
+@CommandArgument("get", help="get mirror's URL")
+def add_cmd_get(_arg: ArgParser):
     global CONF_MIRRORS_NAME  # pylint: disable=global-variable-not-assigned
     _arg.add_argument("name", metavar="NAME", type=str, nargs="?",
                       choices=CONF_MIRRORS_NAME, help="specify name")
 
 
-@run_command(add_cmd_get)
-def run_cmd_get(cmds: commands) -> int:
+@CommandExecutor(add_cmd_get)
+def run_cmd_get(cmds: Command) -> int:
     _name = cmds.args.name
     if _name is not None and _name in cmds.args.mirrors:
         mirror: dict = cmds.args.mirrors[_name]
@@ -142,8 +142,8 @@ def run_cmd_get(cmds: commands) -> int:
     return 0
 
 
-@add_command("set", help="set mirror's URL")
-def add_cmd_set(_arg: argp):
+@CommandArgument("set", help="set mirror's URL")
+def add_cmd_set(_arg: ArgParser):
     global CONF_MIRRORS_NAME  # pylint: disable=global-variable-not-assigned
     _arg.add_argument("name", metavar="NAME", type=str, nargs="?",
                       choices=CONF_MIRRORS_NAME, help="specify name")
@@ -151,8 +151,8 @@ def add_cmd_set(_arg: argp):
                       nargs="?", help="specify URL")
 
 
-@run_command(add_cmd_set)
-def run_cmd_set(cmds: commands) -> int:
+@CommandExecutor(add_cmd_set)
+def run_cmd_set(cmds: Command) -> int:
     _name = cmds.args.name
     _url = cmds.args.url
     if _name is not None and _url is not None:
@@ -162,27 +162,27 @@ def run_cmd_set(cmds: commands) -> int:
     return 0
 
 
-@add_command("now", help="show config mirror")
-def add_cmd_now(_arg: argp):
+@CommandArgument("now", help="show config mirror")
+def add_cmd_now(_arg: ArgParser):
     pass
 
 
-@run_command(add_cmd_now)
-def run_cmd_now(cmds: commands) -> int:  # pylint: disable=unused-argument
+@CommandExecutor(add_cmd_now)
+def run_cmd_now(cmds: Command) -> int:  # pylint: disable=unused-argument
     pipcli("config get global.index-url".split())
     return 0
 
 
-@add_command("choice", help="choice mirror")
-def add_cmd_choice(_arg: argp):
+@CommandArgument("choice", help="choice mirror")
+def add_cmd_choice(_arg: ArgParser):
     global CONF_MIRRORS_NAME  # pylint: disable=global-variable-not-assigned
     _arg.add_argument("name", nargs="?", type=str,
                       metavar="NAME", choices=CONF_MIRRORS_NAME,
                       help="specify name, default choice the best")
 
 
-@run_command(add_cmd_choice)
-def run_cmd_choice(cmds: commands) -> int:
+@CommandExecutor(add_cmd_choice)
+def run_cmd_choice(cmds: Command) -> int:
     result: int = 0
     mirrors = get_mirrors(cmds.args.mirrors)
     best = choice_mirror(mirrors, cmds.args.name)
@@ -194,8 +194,8 @@ def run_cmd_choice(cmds: commands) -> int:
     return result
 
 
-@add_command("mirror")
-def add_cmd(_arg: argp):
+@CommandArgument("mirror")
+def add_cmd(_arg: ArgParser):
     _arg.add_argument("-c", "--config", nargs="?", type=str,
                       const=CONF_MIRRORS, default=CONF_MIRRORS,
                       help="specify config file")
@@ -204,15 +204,15 @@ def add_cmd(_arg: argp):
     CONF_MIRRORS_NAME = list(toml_load(args.config).keys())
 
 
-@run_command(add_cmd, add_cmd_list, add_cmd_get, add_cmd_set,
-             add_cmd_now, add_cmd_choice)
-def run_cmd(cmds: commands) -> int:
+@CommandExecutor(add_cmd, add_cmd_list, add_cmd_get, add_cmd_set,
+                 add_cmd_now, add_cmd_choice)
+def run_cmd(cmds: Command) -> int:
     cmds.args.mirrors = toml_load(cmds.args.config)
     return 0
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
-    cmds = commands()
+    cmds = Command()
     cmds.version = __version__
     return cmds.run(
         root=add_cmd,

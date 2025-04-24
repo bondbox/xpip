@@ -34,7 +34,7 @@ setup(
     packages=find_packages(include=["xpip_mirror*"],
                            exclude=["xpip_mirror.unittest"]),
     package_data={"xpip_mirror.config": ["mirrors.toml"]},
-    install_requires=["xkits >= 2.4.0", "tabulate", "wcwidth",
+    install_requires=["xkits-command >= 0.2", "tabulate", "wcwidth",
                       "ping3", "toml", "pip"],
     entry_points={"console_scripts": ["xpip-mirror = xpip_mirror.cmds:main"]},
 )
