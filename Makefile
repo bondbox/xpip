@@ -1,17 +1,15 @@
 MAKEFLAGS += --always-make
 
-all: build install test
+all: build reinstall test
 
 
 clean: build-clean test-clean
 
 
 build-clean:
-	rm -rf build
-	rm -rf dist
-	rm -rf *.egg-info
+	rm -rf build dist *.egg-info htmlcov coverage.xml .coverage
 build-xpip-mirror:
-	pip3 install --upgrade setuptools xkits tabulate wcwidth ping3 toml pip
+	pip3 install --upgrade setuptools xkits-command tabulate wcwidth ping3 toml pip
 	python3 setup-mirror.py check sdist bdist_wheel --universal
 build-xpip-upload:
 	pip3 install --upgrade setuptools wheel packaging twine keyring keyrings.alt
