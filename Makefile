@@ -57,11 +57,11 @@ upload: upload-xpip-mirror upload-xpip-upload upload-xpip-build
 prepare-test:
 	python3 -m pip install --upgrade pylint flake8 pytest pytest-cov
 pylint-xpip-mirror:
-	pylint $$(git ls-files xpip_mirror/*.py)
+	pylint $(shell git ls-files xpip_mirror/*.py)
 pylint-xpip-upload:
-	pylint $$(git ls-files xpip_upload/*.py)
+	pylint $(shell git ls-files xpip_upload/*.py)
 pylint-xpip-build:
-	pylint $$(git ls-files xpip_build/*.py)
+	pylint $(shell git ls-files xpip_build/*.py)
 pylint: pylint-xpip-mirror pylint-xpip-upload pylint-xpip-build
 flake8:
 	flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
