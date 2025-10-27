@@ -9,31 +9,31 @@ clean: build-clean test-clean
 build-clean:
 	rm -rf build dist *.egg-info htmlcov coverage.xml .coverage
 build-xpip-mirror:
-	pip3 install --upgrade setuptools xkits-command tabulate wcwidth ping3 toml pip
+	python3 -m pip install --upgrade setuptools xkits-command tabulate wcwidth ping3 toml pip
 	python3 setup-mirror.py check sdist bdist_wheel --universal
 build-xpip-upload:
-	pip3 install --upgrade setuptools wheel packaging twine keyring keyrings.alt
+	python3 -m pip install --upgrade setuptools wheel packaging twine keyring keyrings.alt
 	python3 setup-upload.py check sdist bdist_wheel --universal
 build-xpip-build:
-	pip3 install --upgrade "setuptools >= 69.3.0, <= 70.3.0"
+	python3 -m pip install --upgrade "setuptools >= 69.3.0, <= 70.3.0"
 	python3 setup-build.py check sdist bdist_wheel --universal
 build: build-clean build-xpip-mirror build-xpip-upload build-xpip-build
 
 
 install-xpip-mirror:
-	pip3 install --force-reinstall --no-deps dist/xpip_mirror-*.whl
+	python3 -m pip install --force-reinstall --no-deps dist/xpip_mirror-*.whl
 install-xpip-upload:
-	pip3 install --force-reinstall --no-deps dist/xpip_upload-*.whl
+	python3 -m pip install --force-reinstall --no-deps dist/xpip_upload-*.whl
 install-xpip-build:
-	pip3 install --force-reinstall --no-deps dist/xpip_build-*.whl
+	python3 -m pip install --force-reinstall --no-deps dist/xpip_build-*.whl
 install: install-xpip-mirror install-xpip-upload install-xpip-build
 
 uninstall-xpip-mirror:
-	pip3 uninstall -y xpip-mirror
+	python3 -m pip uninstall -y xpip-mirror
 uninstall-xpip-upload:
-	pip3 uninstall -y xpip-upload
+	python3 -m pip uninstall -y xpip-upload
 uninstall-xpip-build:
-	pip3 uninstall -y xpip-build
+	python3 -m pip uninstall -y xpip-build
 uninstall: uninstall-xpip-mirror uninstall-xpip-upload uninstall-xpip-build
 
 reinstall-xpip-mirror: uninstall-xpip-mirror install-xpip-mirror
@@ -55,7 +55,7 @@ upload: upload-xpip-mirror upload-xpip-upload upload-xpip-build
 
 
 prepare-test:
-	pip3 install --upgrade pylint flake8 pytest pytest-cov
+	python3 -m pip install --upgrade pylint flake8 pytest pytest-cov
 pylint-xpip-mirror:
 	pylint $$(git ls-files xpip_mirror/*.py)
 pylint-xpip-upload:
