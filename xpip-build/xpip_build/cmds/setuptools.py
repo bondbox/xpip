@@ -2,7 +2,7 @@
 
 from argparse import ArgumentParser
 from argparse import Namespace
-import glob
+from glob import glob
 import os
 import shutil
 import sys
@@ -41,30 +41,29 @@ def install(args: Namespace) -> int:
 
 def clean(args: Namespace) -> int:
     to_delete_dirs = []
-    to_delete_dirs.extend(glob.glob("build"))
-    to_delete_dirs.extend(glob.glob("dist"))
-    to_delete_dirs.extend(glob.glob("*.egg-info"))
+    to_delete_dirs.extend(glob("build"))
+    to_delete_dirs.extend(glob("dist"))
+    to_delete_dirs.extend(glob("*.egg-info"))
+    to_delete_dirs.extend(glob(os.path.join("**", "__pycache__"), recursive=True))  # noqa:E501
 
     # delete build/dist/*.egg-info directorys
     for dir in to_delete_dirs:
-        if os.path.isdir(dir):
-            if hasattr(args, "debug") and args.debug:
-                sys.stdout.write(f"delete directory: {dir}\n")
-                sys.stdout.flush()
-            shutil.rmtree(dir)
+        if os.path.isdir(dir):  # pragma: no cover
+            if hasattr(args, "debug") and args.debug:  # pragma: no cover
+                sys.stdout.write(f"delete directory: {dir}\n")  # pragma: no cover # noqa:E501
+                sys.stdout.flush()  # pragma: no cover
+            shutil.rmtree(dir)  # pragma: no cover
 
     to_delete_files = []
-    to_delete_files.extend(
-        glob.glob(os.path.join("**", "*.pyc"), recursive=True))
-    to_delete_files.extend(
-        glob.glob(os.path.join("**", "*.pyo"), recursive=True))
+    to_delete_files.extend(glob(os.path.join("**", "*.pyc"), recursive=True))
+    to_delete_files.extend(glob(os.path.join("**", "*.pyo"), recursive=True))
 
     for file in to_delete_files:
-        if os.path.isfile(file):
-            if hasattr(args, "debug") and args.debug:
-                sys.stdout.write(f"delete file: {file}\n")
-                sys.stdout.flush()
-            os.remove(file)
+        if os.path.isfile(file):  # pragma: no cover
+            if hasattr(args, "debug") and args.debug:  # pragma: no cover
+                sys.stdout.write(f"delete file: {file}\n")  # pragma: no cover
+                sys.stdout.flush()  # pragma: no cover
+            os.remove(file)  # pragma: no cover
 
     return 0
 
@@ -95,7 +94,7 @@ def run_cmd(args: Namespace) -> int:
     args.globals = {
         "__file__": os.path.abspath(setupfile),
         "__name__": "__main__",
-     }
+    }
 
     if os.path.isfile(setupfile):
         with open(setupfile, "r") as f:
