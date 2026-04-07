@@ -3,80 +3,38 @@ MAKEFLAGS += --always-make
 all: build reinstall test
 
 
-clean: build-clean test-clean
+clean:
+	make -C xpip-build clean
+	make -C xpip-mirror clean
+	make -C xpip-upload clean
 
 
-build-clean:
-	rm -rf build dist *.egg-info htmlcov coverage.xml .coverage
-build-xpip-mirror:
-	python3 -m pip install --upgrade setuptools xkits-command tabulate wcwidth ping3 toml pip
-	python3 setup-mirror.py check sdist bdist_wheel --universal
-build-xpip-upload:
-	python3 -m pip install --upgrade setuptools wheel packaging twine keyring keyrings.alt
-	python3 setup-upload.py check sdist bdist_wheel --universal
-build-xpip-build:
-	python3 -m pip install --upgrade "setuptools >= 69.3.0, <= 70.3.0"
-	python3 setup-build.py check sdist bdist_wheel --universal
-build: build-clean build-xpip-mirror build-xpip-upload build-xpip-build
+build:
+	make -C xpip-build build
+	make -C xpip-mirror build
+	make -C xpip-upload build
 
 
-install-xpip-mirror:
-	python3 -m pip install --force-reinstall --no-deps dist/xpip_mirror-*.whl
-install-xpip-upload:
-	python3 -m pip install --force-reinstall --no-deps dist/xpip_upload-*.whl
-install-xpip-build:
-	python3 -m pip install --force-reinstall --no-deps dist/xpip_build-*.whl
-install: install-xpip-mirror install-xpip-upload install-xpip-build
+install:
+	make -C xpip-build install
+	make -C xpip-mirror install
+	make -C xpip-upload install
 
-uninstall-xpip-mirror:
-	python3 -m pip uninstall -y xpip-mirror
-uninstall-xpip-upload:
-	python3 -m pip uninstall -y xpip-upload
-uninstall-xpip-build:
-	python3 -m pip uninstall -y xpip-build
-uninstall: uninstall-xpip-mirror uninstall-xpip-upload uninstall-xpip-build
+uninstall:
+	make -C xpip-build uninstall
+	make -C xpip-mirror uninstall
+	make -C xpip-upload uninstall
 
-reinstall-xpip-mirror: uninstall-xpip-mirror install-xpip-mirror
-reinstall-xpip-upload: uninstall-xpip-upload install-xpip-upload
-reinstall-xpip-build: uninstall-xpip-build install-xpip-build
-reinstall: reinstall-xpip-mirror reinstall-xpip-upload reinstall-xpip-build
+reinstall: uninstall install
 
 
-upload-xpip-mirror:
-	python3 -m twine check dist/xpip_mirror-*
-	python3 -m twine upload --verbose --config-file .pypirc --repository xpip-mirror dist/xpip_mirror-*
-upload-xpip-upload:
-	python3 -m twine check dist/xpip_upload-*
-	python3 -m twine upload --verbose --config-file .pypirc --repository xpip-upload dist/xpip_upload-*
-upload-xpip-build:
-	python3 -m twine check dist/xpip_build-*
-	python3 -m twine upload --verbose --config-file .pypirc --repository xpip-build dist/xpip_build-*
-upload: upload-xpip-mirror upload-xpip-upload upload-xpip-build
+upload:
+	make -C xpip-build upload
+	make -C xpip-mirror upload
+	make -C xpip-upload upload
 
 
-prepare-test:
-	python3 -m pip install --upgrade pylint flake8 pytest pytest-cov
-pylint-xpip-mirror:
-	pylint $(shell git ls-files xpip_mirror/*.py)
-pylint-xpip-upload:
-	pylint $(shell git ls-files xpip_upload/*.py)
-pylint-xpip-build:
-	pylint $(shell git ls-files xpip_build/*.py)
-pylint: pylint-xpip-mirror pylint-xpip-upload pylint-xpip-build
-flake8:
-	flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-	flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-pytest-xpip-mirror:
-	pytest --cov=xpip_mirror --cov-report=term-missing --cov-report=xml --cov-report=html --cov-config=.coveragerc --cov-fail-under=100 xpip_mirror/unittest/*.py
-pytest-xpip-upload:
-	pytest --cov=xpip_upload --cov-report=term-missing --cov-report=xml --cov-report=html --cov-config=.coveragerc --cov-fail-under=100 xpip_upload/unittest/*.py
-pytest-xpip-build:
-	pytest --cov=xpip_build --cov-report=term-missing --cov-report=xml --cov-report=html --cov-config=.coveragerc --cov-fail-under=100 xpip_build/unittest/*.py
-pytest: pytest-xpip-mirror pytest-xpip-upload pytest-xpip-build
-pytest-clean:
-	rm -rf .pytest_cache
-test-xpip-mirror: prepare-test pylint-xpip-mirror flake8 pytest-xpip-mirror
-test-xpip-upload: prepare-test pylint-xpip-upload flake8 pytest-xpip-upload
-test-xpip-build: prepare-test pylint-xpip-build flake8 pytest-xpip-build
-test: prepare-test pylint flake8 pytest
-test-clean: pytest-clean
+test:
+	make -C xpip-build test
+	make -C xpip-mirror test
+	make -C xpip-upload test

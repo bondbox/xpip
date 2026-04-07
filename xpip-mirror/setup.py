@@ -15,7 +15,7 @@ from xpip_mirror.attribute import __urldocs__
 from xpip_mirror.attribute import __urlhome__
 from xpip_mirror.attribute import __version__
 
-long_description: str = os.path.join("docs", "xpip-mirror.md")
+long_description: str = os.path.join("..", "docs", "xpip-mirror.md")
 
 setup(
     name=__project__,

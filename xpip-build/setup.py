@@ -1,10 +1,12 @@
 # coding=utf-8
 
 import os
+from os.path import dirname
+from os.path import join
+import sys
 
 from setuptools import find_packages
 from setuptools import setup
-
 from xpip_build.attribute import __author__
 from xpip_build.attribute import __author_email__
 from xpip_build.attribute import __description__
@@ -14,9 +16,11 @@ from xpip_build.attribute import __urlcode__
 from xpip_build.attribute import __urldocs__
 from xpip_build.attribute import __urlhome__
 from xpip_build.attribute import __version__
-from xpip_upload.attribute import __version__ as upload_version
 
-long_description: str = os.path.join("docs", "xpip-build.md")
+sys.path.insert(0, join(dirname(__file__), "..", "xpip-upload"))
+from xpip_upload.attribute import __version__ as upload_version  # noqa:E402
+
+long_description: str = os.path.join("..", "docs", "xpip-build.md")
 
 setup(
     name=__project__,

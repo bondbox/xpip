@@ -1,8 +1,6 @@
 [run]
 omit =
-    xpip_mirror/unittest/*
-    xpip_upload/unittest/*
-    xpip_build/unittest/*
+    */unittest/*
 
 [report]
 exclude_lines =

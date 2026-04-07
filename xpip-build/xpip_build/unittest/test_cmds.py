@@ -27,28 +27,28 @@ class TestCmds(unittest.TestCase):
         self.assertEqual(cmds.main(["--debug", "version"]), 0)
 
     def test_setup_clean(self):
-        self.assertEqual(cmds.main(["--debug", "setup", "--file", "setup-upload.py", "--clean"]), 0)  # noqa:E501
+        self.assertEqual(cmds.main(["--debug", "setup", "--file", "setup.py", "--clean"]), 0)  # noqa:E501
 
     def test_setup_check(self):
-        self.assertEqual(cmds.main(["--debug", "setup", "--file", "setup-upload.py", "--check"]), 0)  # noqa:E501
+        self.assertEqual(cmds.main(["--debug", "setup", "--file", "setup.py", "--check"]), 0)  # noqa:E501
 
     def test_setup_all(self):
-        self.assertEqual(cmds.main(["--debug", "setup", "--file", "setup-upload.py", "--all"]), 0)  # noqa:E501
+        self.assertEqual(cmds.main(["--debug", "setup", "--file", "setup.py", "--all"]), 0)  # noqa:E501
 
     @mock.patch.object(setuptools, "run")
     def test_setup_install_debug(self, mock_run):
         mock_run.side_effect = [Exception()]
-        self.assertRaises(Exception, cmds.main, ["--debug", "setup", "--file", "setup-upload.py", "--install"])  # noqa:E501,H202
+        self.assertRaises(Exception, cmds.main, ["--debug", "setup", "--file", "setup.py", "--install"])  # noqa:E501,H202
 
     @mock.patch.object(setuptools, "run")
     def test_setup_install_KeyboardInterrupt(self, mock_run):
         mock_run.side_effect = [KeyboardInterrupt()]
-        self.assertEqual(cmds.main(["--debug", "setup", "--file", "setup-upload.py", "--install"]), 0)  # noqa:E501
+        self.assertEqual(cmds.main(["--debug", "setup", "--file", "setup.py", "--install"]), 0)  # noqa:E501
 
     @mock.patch.object(setuptools, "run")
     def test_setup_install(self, mock_run):
         mock_run.side_effect = [Exception()]
-        self.assertEqual(cmds.main(["setup", "--file", "setup-upload.py", "--install"]), 10000)  # noqa:E501
+        self.assertEqual(cmds.main(["setup", "--file", "setup.py", "--install"]), 10000)  # noqa:E501
 
     def test_setup_run(self):
         with mock.patch.object(setuptools.setuptools, "setup"):

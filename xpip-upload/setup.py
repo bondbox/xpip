@@ -15,7 +15,7 @@ from xpip_upload.attribute import __urldocs__
 from xpip_upload.attribute import __urlhome__
 from xpip_upload.attribute import __version__
 
-long_description: str = os.path.join("docs", "xpip-upload.md")
+long_description: str = os.path.join("..", "docs", "xpip-upload.md")
 
 setup(
     name=__project__,
