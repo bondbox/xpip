@@ -1,21 +1,31 @@
 # coding=utf-8
 
 import os
+from urllib.parse import urljoin
 
 from setuptools import find_packages
 from setuptools import setup
-
 from xpip_upload.attribute import __author__
 from xpip_upload.attribute import __author_email__
 from xpip_upload.attribute import __description__
 from xpip_upload.attribute import __project__
-from xpip_upload.attribute import __urlbugs__
-from xpip_upload.attribute import __urlcode__
-from xpip_upload.attribute import __urldocs__
 from xpip_upload.attribute import __urlhome__
 from xpip_upload.attribute import __version__
 
+__urlcode__ = __urlhome__
+__urldocs__ = __urlhome__
+__urlbugs__ = urljoin(__urlhome__, "issues")
 long_description: str = os.path.join("..", "docs", "xpip-upload.md")
+
+
+def all_requirements():
+    def read_requirements(path: str):
+        with open(path, "r", encoding="utf-8") as rhdl:
+            return rhdl.read().splitlines()
+
+    requirements = read_requirements("requirements.txt")
+    return requirements
+
 
 setup(
     name=__project__,
@@ -32,7 +42,6 @@ setup(
                   "Documentation": __urldocs__},
     packages=find_packages(include=["xpip_upload*"],
                            exclude=["xpip_upload.unittest"]),
-    install_requires=["wheel", "packaging>=24.2", "twine>=6.1.0",
-                      "keyring", "keyrings.alt"],
+    install_requires=all_requirements(),
     entry_points={"console_scripts": ["xpip-upload = xpip_upload.cmds:main"]},
 )

@@ -1,0 +1,6 @@
+xkits-command>=0.2
+tabulate
+wcwidth
+ping3
+toml
+pip
