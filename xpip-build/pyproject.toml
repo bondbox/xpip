@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling", "setuptools>=69.3.0", "wheel"]
+build-backend = "hatchling.build"
+
+[project]
+dynamic = ["name", "urls", "authors", "version", "description", "dependencies"]
+readme = {file = "readme.md", content-type = "text/markdown"}
+license-files = ["LICENSE"]
+requires-python = ">=3.8"
+keywords = ["setuptools", "wheel"]
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+
+[project.scripts]
+xpip-build = "xpip_build.cmds:main"
+
+[tool.hatch.metadata.hooks.custom]
+
+[tool.hatch.build.targets.sdist]
+packages = ["xpip_build"]
+exclude = [
+    "xpip_build/unittest",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["xpip_build"]
+exclude = [
+    "xpip_build/unittest",
+]
