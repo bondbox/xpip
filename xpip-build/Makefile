@@ -16,7 +16,7 @@ upload:
 
 
 build-prepare:
-	python3 -m pip install --upgrade -r requirements.txt build
+	python3 -m pip install --upgrade -r requirements.txt
 build-clean:
 	rm -rf build dist *.egg-info htmlcov coverage.xml .coverage
 	find . -type d -name "__pycache__" -exec rm -rf {} +
