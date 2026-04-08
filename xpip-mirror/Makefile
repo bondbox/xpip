@@ -1,12 +1,6 @@
 MAKEFLAGS += --always-make
 
-VERSION := $(shell python3 setup.py --version)
-
 all: build reinstall test
-
-
-version:
-	@echo ${VERSION}
 
 
 clean-cover:
@@ -22,12 +16,12 @@ upload:
 
 
 build-prepare:
-	python3 -m pip install --upgrade -r requirements.txt setuptools
+	python3 -m pip install --upgrade -r requirements.txt build
 build-clean:
 	rm -rf build dist *.egg-info htmlcov coverage.xml .coverage
 	find . -type d -name "__pycache__" -exec rm -rf {} +
 build: build-prepare build-clean
-	python3 setup.py check sdist bdist_wheel --universal
+	python3 -m build --sdist --wheel
 
 
 install:
