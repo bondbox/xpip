@@ -1,0 +1,34 @@
+[build-system]
+requires = ["hatchling", "hatch-requirements-txt", "setuptools>=69.3.0", "wheel"]
+build-backend = "hatchling.build"
+
+[project]
+dynamic = ["name", "urls", "authors", "version", "description", "dependencies"]
+readme = {file = "readme.md", content-type = "text/markdown"}
+license-files = ["LICENSE"]
+requires-python = ">=3.8"
+keywords = ["twine", "wheel"]
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+
+[project.scripts]
+xpip-upload = "xpip_upload.cmds:main"
+
+[tool.hatch.metadata.hooks.custom]
+
+[tool.hatch.metadata.hooks.requirements_txt]
+files = ["requirements.txt"]
+
+[tool.hatch.build.targets.sdist]
+packages = ["xpip_upload"]
+exclude = [
+    "xpip_upload/unittest",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["xpip_upload"]
+exclude = [
+    "xpip_upload/unittest",
+]
