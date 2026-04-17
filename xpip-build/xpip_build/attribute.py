@@ -1,7 +1,7 @@
 # coding:utf-8
 
 __project__ = "xpip-build"
-__version__ = "1.3.1"
+__version__ = "1.4"
 __description__ = "Python package. Build. Install."
 __urlhome__ = "https://github.com/bondbox/xpip/"
 
