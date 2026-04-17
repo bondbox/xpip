@@ -6,6 +6,7 @@ import platform
 import sys
 from typing import List
 
+from build import __version__ as build_version
 from setuptools import __version__ as setuptools_version
 
 from xpip_build.attribute import __version__ as xpip_version
@@ -16,8 +17,11 @@ def add_cmd(_arg: ArgumentParser):
 
 
 def run_cmd(args: Namespace) -> int:
-    versions: List[str] = [f"python {platform.python_version()}",
-                           f"setuptools {setuptools_version}"]
+    versions: List[str] = [
+        f"python {platform.python_version()}",
+        f"setuptools {setuptools_version}",
+        f"build {build_version}",
+    ]
     sys.stderr.write(f"xpip-build {xpip_version} ({', '.join(versions)})\n")
     sys.stdout.flush()
     return 0
