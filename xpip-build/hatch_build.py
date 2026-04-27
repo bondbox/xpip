@@ -2,9 +2,11 @@
 
 from pathlib import Path
 import sys
+from typing import List
 from urllib.parse import urljoin
 
 from hatchling.metadata.plugin.interface import MetadataHookInterface
+from packaging.requirements import Requirement
 
 sys.path.insert(0, str(Path(__file__).parent))
 sys.path.insert(0, str(Path(__file__).parent.parent / "xpip-upload"))
@@ -18,14 +20,13 @@ from xpip_build.attribute import __version__
 from xpip_upload.attribute import __version__ as upload_version  # noqa:E402
 
 
-def all_requirements():
-    def read_requirements(path: str):
+def all_requirements() -> List[str]:
+    def read_requirements(path: str = "requirements.txt") -> List[Requirement]:
         with open(path, "r", encoding="utf-8") as rhdl:
-            return rhdl.read().splitlines()
+            return [Requirement(line) for line in rhdl.read().splitlines()]
 
-    requirements = read_requirements("requirements.txt")
-    requirements.append(f"xpip-upload>={upload_version}")
-    return requirements
+    (requirements := read_requirements()).append(Requirement(f"xpip-upload>={upload_version}"))  # noqa:E501
+    return [str(dependence) for dependence in requirements]
 
 
 class CustomMetadataHook(MetadataHookInterface):
