@@ -1,10 +1,11 @@
 # coding:utf-8
 
-__project__ = "xpip-mirror"
-__version__ = "0.6"
-__description__ = "pip mirror management"
-__urlhome__ = "https://github.com/bondbox/xpip/"
+# project info
+__project_name__ = "xpip"
+__project_home__ = "https://github.com/bondbox/xpip/"
+__project_desc__ = "Python package. Build. Install."
 
-# author
-__author__ = "Mingzhe Zou"
-__author_email__ = "zoumingzhe@outlook.com"
+# package info
+__version__ = "0.6"
+__package_name__ = "xpip-mirror"
+__package_desc__ = "pip mirror management"

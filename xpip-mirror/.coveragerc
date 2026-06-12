@@ -1,1 +1,16 @@
-../.coveragerc
+[run]
+omit = 
+	xpip_mirror/attribute.py
+	xpip_mirror/unittest/*
+source = 
+	xpip_mirror
+
+[report]
+exclude_lines = 
+	pragma: no cover
+	raise NotImplementedError
+	if __name__ == .__main__.:
+	def __repr__
+	pass
+fail_under = 100
+

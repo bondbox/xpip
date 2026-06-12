@@ -1,34 +1,43 @@
 [build-system]
-requires = ["hatchling", "hatch-requirements-txt", "setuptools>=69.3.0", "wheel"]
 build-backend = "hatchling.build"
+requires = [ "hatch-requirements-txt", "hatchling",]
 
 [project]
-dynamic = ["name", "urls", "authors", "version", "description", "dependencies"]
-readme = {file = "readme.md", content-type = "text/markdown"}
-license-files = ["LICENSE"]
+classifiers = [ "Programming Language :: Python", "Programming Language :: Python :: 3",]
+description = "upload python package via twine"
+dynamic = [ "dependencies", "version",]
+keywords = [ "twine", "wheel",]
+license-files = [ "LICENSE",]
+name = "xpip-upload"
 requires-python = ">=3.8"
-keywords = ["twine", "wheel"]
-classifiers = [
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
-]
+[[project.authors]]
+name = "Mingzhe Zou"
+email = "zoumingzhe@outlook.com"
+
+[project.readme]
+content-type = "text/markdown"
+file = "readme.md"
 
 [project.scripts]
 xpip-upload = "xpip_upload.cmds:main"
 
-[tool.hatch.metadata.hooks.custom]
+[project.urls]
+Homepage = "https://github.com/bondbox/xpip/"
 
-[tool.hatch.metadata.hooks.requirements_txt]
-files = ["requirements.txt"]
+[tool.hatch.version]
+path = "xpip_upload/attribute.py"
 
 [tool.hatch.build.targets.sdist]
-packages = ["xpip_upload"]
-exclude = [
-    "xpip_upload/unittest",
-]
+exclude = [ "xpip_upload/unittest",]
+packages = [ "xpip_upload",]
 
 [tool.hatch.build.targets.wheel]
-packages = ["xpip_upload"]
-exclude = [
-    "xpip_upload/unittest",
-]
+exclude = [ "xpip_upload/unittest",]
+packages = [ "xpip_upload",]
+
+[tool.hatch.metadata.hooks.requirements_txt]
+files = [ "requirements.txt",]
+
+[tool.hatch.build.targets.sdist.force-include]
+
+[tool.hatch.build.targets.wheel.force-include]

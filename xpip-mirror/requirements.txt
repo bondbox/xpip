@@ -1,4 +1,4 @@
-xkits-command>=0.2
+xkits-command>=0.6
 tabulate
 wcwidth
 ping3

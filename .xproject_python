@@ -1,0 +1,78 @@
+name = "xpip"
+home = "https://github.com/bondbox/xpip/"
+description = "Python package. Build. Install."
+keywords = []
+version = "1.0"
+
+[authors.zoumingzhe]
+name = "Mingzhe Zou"
+email = "zoumingzhe@outlook.com"
+
+[packages.xpip-build]
+version = "1.4"
+description = "Python package. Build. Install."
+requires_python = ">=3.8"
+authors = [ "zoumingzhe",]
+keywords = [ "build", "setuptools", "wheel",]
+requirements = [ "setuptools", "build",]
+max_complexity = 10
+max_line_length = 127
+
+[packages.xpip-mirror]
+version = "0.6"
+description = "pip mirror management"
+requires_python = ">=3.8"
+authors = [ "zoumingzhe",]
+keywords = [ "pip", "pypi", "mirror",]
+requirements = [ "xkits-command>=0.6", "tabulate", "wcwidth", "ping3", "toml", "pip",]
+max_complexity = 10
+max_line_length = 127
+
+[packages.xpip-upload]
+version = "1.4"
+description = "upload python package via twine"
+requires_python = ">=3.8"
+authors = [ "zoumingzhe",]
+keywords = [ "twine", "wheel",]
+requirements = [ "packaging>=24.2", "twine>=6.1.0", "keyrings.alt", "keyring", "wheel",]
+max_complexity = 10
+max_line_length = 127
+
+[packages.xpip-build.modules.xpip_build]
+base = "xpip_build"
+omitted = [ "attribute.py", "unittest/*",]
+exclude = [ "unittest",]
+
+[packages.xpip-mirror.modules.xpip_mirror]
+base = "xpip_mirror"
+omitted = [ "attribute.py", "unittest/*",]
+exclude = [ "unittest",]
+
+[packages.xpip-upload.modules.xpip_upload]
+base = "xpip_upload"
+omitted = [ "attribute.py", "unittest/*",]
+exclude = [ "unittest",]
+
+[packages.xpip-build.modules.xpip_build.include]
+
+[packages.xpip-build.modules.xpip_build.scripts]
+xpip-build = "cmds:main"
+
+[packages.xpip-build.modules.xpip_build.templates]
+"attribute.py" = true
+
+[packages.xpip-mirror.modules.xpip_mirror.include]
+
+[packages.xpip-mirror.modules.xpip_mirror.scripts]
+xpip-mirror = "cmds:main"
+
+[packages.xpip-mirror.modules.xpip_mirror.templates]
+"attribute.py" = true
+
+[packages.xpip-upload.modules.xpip_upload.include]
+
+[packages.xpip-upload.modules.xpip_upload.scripts]
+xpip-upload = "cmds:main"
+
+[packages.xpip-upload.modules.xpip_upload.templates]
+"attribute.py" = true

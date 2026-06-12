@@ -18,8 +18,8 @@ from twine.package import PackageMetadata
 from twine.utils import DEFAULT_CONFIG_FILE
 from twine.utils import DEFAULT_REPOSITORY as DEFAULT_REPO_URL
 
-from xpip_upload.attribute import __description__
-from xpip_upload.attribute import __urlhome__
+from xpip_upload.attribute import __package_desc__
+from xpip_upload.attribute import __project_home__
 
 try:
     from argcomplete import autocomplete
@@ -188,8 +188,8 @@ def run_cmd(args: Namespace) -> int:
 
 
 def main(argv: Optional[List[str]] = None) -> int:
-    _arg = ArgumentParser(prog="xpip-upload", description=__description__,
-                          epilog=f"For more, please visit {__urlhome__}")
+    _arg = ArgumentParser(prog="xpip-upload", description=__package_desc__,
+                          epilog=f"For more, please visit {__project_home__}")
     add_cmd(_arg, argv)
 
     try:

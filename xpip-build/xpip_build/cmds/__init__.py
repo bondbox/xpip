@@ -8,8 +8,8 @@ import sys
 from typing import List
 from typing import Optional
 
-from xpip_build.attribute import __description__
-from xpip_build.attribute import __urlhome__
+from xpip_build.attribute import __package_desc__
+from xpip_build.attribute import __project_home__
 from xpip_build.cmds.setuptools import add_cmd as add_cmd_setup
 from xpip_build.cmds.setuptools import run_cmd as run_cmd_setup
 from xpip_build.cmds.version import add_cmd as add_cmd_version
@@ -20,7 +20,7 @@ try:
 except ModuleNotFoundError:  # pragma: no cover
     pass  # pragma: no cover
 
-EPILOG = f"For more, please visit {__urlhome__}"
+EPILOG = f"For more, please visit {__project_home__}"
 
 
 def add_cmd(_arg: ArgumentParser):
@@ -52,7 +52,7 @@ def run_cmd(args: Namespace) -> int:
 
 
 def main(argv: Optional[List[str]] = None) -> int:
-    _arg = ArgumentParser(prog="xpip-build", description=__description__,
+    _arg = ArgumentParser(prog="xpip-build", description=__package_desc__,
                           epilog=EPILOG)
     add_cmd(_arg)
 

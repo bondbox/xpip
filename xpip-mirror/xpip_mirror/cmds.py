@@ -18,8 +18,8 @@ from xkits_command import Command
 from xkits_command import CommandArgument
 from xkits_command import CommandExecutor
 
-from xpip_mirror.attribute import __description__
-from xpip_mirror.attribute import __urlhome__
+from xpip_mirror.attribute import __package_desc__
+from xpip_mirror.attribute import __project_home__
 from xpip_mirror.attribute import __version__
 from xpip_mirror.util import DIR_CONF
 from xpip_mirror.util import ping_second
@@ -214,5 +214,5 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     return cmds.run(
         root=add_cmd,
         argv=argv,
-        description=__description__,
-        epilog=f"For more, please visit {__urlhome__}.")
+        description=__package_desc__,
+        epilog=f"For more, please visit {__project_home__}.")

@@ -1,10 +1,11 @@
 # coding:utf-8
 
-__project__ = "xpip-upload"
-__version__ = "1.4"
-__description__ = "upload python package via twine"
-__urlhome__ = "https://github.com/bondbox/xpip/"
+# project info
+__project_name__ = "xpip"
+__project_home__ = "https://github.com/bondbox/xpip/"
+__project_desc__ = "Python package. Build. Install."
 
-# author
-__author__ = "Mingzhe Zou"
-__author_email__ = "zoumingzhe@outlook.com"
+# package info
+__version__ = "1.4"
+__package_name__ = "xpip-upload"
+__package_desc__ = "upload python package via twine"

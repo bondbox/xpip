@@ -1,0 +1,11 @@
+[flake8]
+count = True
+exclude = 
+	xpip_mirror/unittest
+filename = *.py
+max-complexity = 10
+max-line-length = 127
+show-source = True
+statistics = True
+exit-zero = False
+
