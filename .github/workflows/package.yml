@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  xpip-build:
+  python:
 
     runs-on: ubuntu-latest
     strategy:
@@ -27,41 +27,6 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Build and Test
       run: |
-        make -C xpip-build build install test
-
-  xpip-mirror:
-
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Build and Test
-      run: |
-        make -C xpip-mirror build install test
-
-  xpip-upload:
-
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Build and Test
-      run: |
-        make -C xpip-upload build install test
+        python -m pip install --upgrade pip
+        make build install test
 
