@@ -6,6 +6,6 @@ __project_home__ = "https://github.com/bondbox/xpip/"
 __project_desc__ = "Python package. Build. Install."
 
 # package info
-__version__ = "0.6"
+__version__ = "0.7"
 __package_name__ = "xpip-mirror"
 __package_desc__ = "pip mirror management"
