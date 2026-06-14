@@ -14,7 +14,7 @@ description = "Python package. Build. Install."
 requires_python = ">=3.8"
 authors = [ "zoumingzhe",]
 keywords = [ "build", "setuptools", "wheel",]
-requirements = [ "setuptools", "build",]
+requirements = [ "xpip-upload", "setuptools", "build",]
 max_complexity = 10
 max_line_length = 127
 
