@@ -1,18 +1,33 @@
 [build-system]
 build-backend = "hatchling.build"
-requires = [ "hatch-requirements-txt", "hatchling",]
+requires = [
+    "hatch-requirements-txt",
+    "hatchling",
+]
 
 [project]
-classifiers = [ "Programming Language :: Python", "Programming Language :: Python :: 3",]
+authors = [
+    { name = "Mingzhe Zou", email = "zoumingzhe@outlook.com" },
+]
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
 description = "pip mirror management"
-dynamic = [ "dependencies", "version",]
-keywords = [ "pip", "pypi", "mirror",]
-license-files = [ "LICENSE",]
+dynamic = [
+    "dependencies",
+    "version",
+]
+keywords = [
+    "pip",
+    "pypi",
+    "mirror",
+]
 name = "xpip-mirror"
 requires-python = ">=3.8"
-[[project.authors]]
-name = "Mingzhe Zou"
-email = "zoumingzhe@outlook.com"
+
+[project.license]
+file = "LICENSE"
 
 [project.readme]
 content-type = "text/markdown"
@@ -24,20 +39,26 @@ xpip-mirror = "xpip_mirror.cmds:main"
 [project.urls]
 Homepage = "https://github.com/bondbox/xpip/"
 
-[tool.hatch.version]
-path = "xpip_mirror/attribute.py"
-
 [tool.hatch.build.targets.sdist]
-exclude = [ "xpip_mirror/unittest",]
-packages = [ "xpip_mirror",]
+exclude = [
+    "xpip_mirror/unittest",
+]
+packages = [
+    "xpip_mirror",
+]
 
 [tool.hatch.build.targets.wheel]
-exclude = [ "xpip_mirror/unittest",]
-packages = [ "xpip_mirror",]
+exclude = [
+    "xpip_mirror/unittest",
+]
+packages = [
+    "xpip_mirror",
+]
 
 [tool.hatch.metadata.hooks.requirements_txt]
-files = [ "requirements.txt",]
+files = [
+    "requirements.txt",
+]
 
-[tool.hatch.build.targets.sdist.force-include]
-
-[tool.hatch.build.targets.wheel.force-include]
+[tool.hatch.version]
+path = "xpip_mirror/attribute.py"
